@@ -1,0 +1,5 @@
+kullanici1 2023-04-20 14:30 Bu üründen çok memnun kaldım!
+ 
+kullanici2 2023-04-21 16:45 Teslimat çok gecikti, memnun kalmadım.
+ 
+kullanici3 2023-04-22 12:00 Mükemmel hizmet, teşekkürler.
