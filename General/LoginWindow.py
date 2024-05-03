@@ -2,24 +2,24 @@ import sys
 
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication, QMainWindow
-from PySide6.QtCore import Qt, QFile
+from PySide6.QtCore import QFile
 
-class LoginScreen(QMainWindow):
+
+class LoginWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         # Load the ui file
-        ui_file_name = "uifolder/ui_login.ui"
+        if __name__ == "__main__":
+            ui_file_name = "../uifolder/Login.ui"
+        else:
+            ui_file_name = "uifolder/Login.ui"
         ui_file = QFile(ui_file_name)
         self.ui = QUiLoader().load(ui_file)
         ui_file.close()
         self.setCentralWidget(self.ui)
 
-        def checkAccount(self):
-
-
-
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = LoginScreen()
+    window = LoginWindow()
     window.show()
     sys.exit(app.exec())

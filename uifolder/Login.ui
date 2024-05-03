@@ -10,6 +10,12 @@
     <height>432</height>
    </rect>
   </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
   <property name="minimumSize">
    <size>
     <width>450</width>
@@ -18,8 +24,8 @@
   </property>
   <property name="maximumSize">
    <size>
-    <width>450</width>
-    <height>432</height>
+    <width>5000</width>
+    <height>5000</height>
    </size>
   </property>
   <property name="windowTitle">
@@ -87,10 +93,7 @@ QPushButton#minimize_button{
 }
 </string>
    </property>
-   <layout class="QVBoxLayout" name="verticalLayout_2">
-    <property name="spacing">
-     <number>0</number>
-    </property>
+   <layout class="QGridLayout" name="gridLayout">
     <property name="leftMargin">
      <number>0</number>
     </property>
@@ -103,7 +106,7 @@ QPushButton#minimize_button{
     <property name="bottomMargin">
      <number>0</number>
     </property>
-    <item>
+    <item row="0" column="0">
      <widget class="QFrame" name="frame">
       <property name="styleSheet">
        <string notr="true"/>

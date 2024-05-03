@@ -2,24 +2,40 @@ import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget
 
+from General.LoginWindow import LoginWindow
+from General.RegisterWindow import RegisterWindow
+from Customer.MainMenu import MainMenu
+from Customer.OrderWindow import OrderWindow
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
         # Set Window Title
-        self.setWindowTitle("Restoran Sistemi")
+        self.setWindowTitle("Restoran Sistemi (Müşteri)")
 
         # Set initial windows size
         self.screenSize = QApplication.primaryScreen().size()
+        self.resize(800, 640)
 
         # Move Window to Center
         self.move(self.screenSize.width() / 2, self.screenSize.height() / 2)
 
         # Setting Pages
         self.stackedWidget = QStackedWidget()
-        # self.homepage = HomePage()
-        # self.stackedWidget.addWidget(self.indicatorspage)
-        # self.stackedWidget.setCurrentWidget(self.homepage)
+        self.loginWindow = LoginWindow()
+        self.mainmenu = MainMenu()
+        self.registerWindow = RegisterWindow()
+        self.orderWindow = OrderWindow()
+
+        self.stackedWidget.addWidget(self.loginWindow)
+        self.stackedWidget.addWidget(self.registerWindow)
+        self.stackedWidget.addWidget(self.mainmenu)
+        self.stackedWidget.addWidget(self.orderWindow)
+        self.stackedWidget.setCurrentWidget(self.orderWindow)
+
+        # Add Stacked Widget to the layout
+        self.setCentralWidget(self.stackedWidget)
 
         #  SET BUTTONS
         #  Main Window buttons

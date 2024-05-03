@@ -6,20 +6,20 @@ import datetime
 # Kullanıcılar.txt dosyasını kontrol etme
 def verify_customer_login(username, password):
     try:
-        with open("kullanicilar.txt", "r") as file:
+        with open("database/kullanicilar.txt", "r") as file:
             users = file.readlines()
             for user in users:
                 user_info = user.strip().split("-")
                 if username == user_info[1] and password == user_info[2]:
                     return True
     except FileNotFoundError:
-        with open("kullanicilar.txt", "w") as file:
+        with open("database/kullanicilar.txt", "w") as file:
             pass
     return False
 
 # Kullanıcıları.txt dosyasına kaydetme
 def save_new_customer(full_name, username, password):
-    with open("kullanicilar.txt", "a") as file:
+    with open("database/kullanicilar.txt", "a") as file:
         file.write(f"{full_name}-{username}-{password}\n")
     messagebox.showinfo("Kayıt Başarılı", "Başarıyla kaydedildi!")
 
@@ -47,7 +47,7 @@ def admin_login_screen():
 def fiyatlari_belirle():
     # Fiyat güncelleme penceresi
     def guncelle():
-        with open("urun_fiyat.txt", "w") as dosya:
+        with open("database/urun_fiyat.txt", "w") as dosya:
             for urun, entry in urun_fiyat_entries.items():
                 yeni_fiyat = entry.get()
                 dosya.write(f"{urun} {yeni_fiyat}\n\n")
@@ -58,7 +58,7 @@ def fiyatlari_belirle():
     fiyat_penceresi.title("Fiyatları Belirle")
 
     urun_fiyat_entries = {}
-    with open("urun_fiyat.txt", "r") as dosya:
+    with open("database/urun_fiyat.txt", "r") as dosya:
         for satir in dosya:
             if satir.strip():
                 urun, fiyat = satir.split()
@@ -72,7 +72,7 @@ def fiyatlari_belirle():
 def yorumlari_oku():
     yorum_penceresi = tk.Toplevel()
     yorum_penceresi.title("Yorum ve Şikayetleri Oku")
-    with open("yorumlar.txt", "r") as dosya:
+    with open("database/yorumlar.txt", "r") as dosya:
         for satir in dosya:
             if satir.strip():
                 tk.Label(yorum_penceresi, text=satir.strip()).pack()
@@ -80,7 +80,7 @@ def yorumlari_oku():
 def stok_goruntule():
     stok_penceresi = tk.Toplevel()
     stok_penceresi.title("Stokları Görüntüle")
-    with open("stoklar.txt", "r") as dosya:
+    with open("database/stoklar.txt", "r") as dosya:
         for satir in dosya:
             if satir.strip():
                 tk.Label(stok_penceresi, text=satir.strip()).pack()
@@ -153,7 +153,7 @@ def update_stock():
     stock_window.title("Stok Güncelleme")
 
     # 'stoklar.txt' dosyasını oku
-    with open('stoklar.txt', 'r', encoding='utf-8') as file:
+    with open('database/stoklar.txt', 'r', encoding='utf-8') as file:
         lines = file.readlines()
 
     products = {}
@@ -184,7 +184,7 @@ def update_stock():
 
     def submit_changes():
         # Güncelleme işlemlerini uygula
-        with open('stoklar.txt', 'w', encoding='utf-8') as file:
+        with open('database/stoklar.txt', 'w', encoding='utf-8') as file:
             for product, (qty_entry, price_entry) in entries.items():
                 try:
                     purchased_qty = int(qty_entry.get())
@@ -195,7 +195,7 @@ def update_stock():
                     continue  # Hatalı girişleri atla
 
         # Ay-harcama kaydı ekle
-        with open('gider.txt', 'a', encoding='utf-8') as file:
+        with open('database/gider.txt', 'a', encoding='utf-8') as file:
             month = datetime.datetime.now().strftime("%B")
             for _, (qty_entry, price_entry) in entries.items():
                 try:

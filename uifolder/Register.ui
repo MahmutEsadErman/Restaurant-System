@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>454</width>
-    <height>429</height>
+    <width>711</width>
+    <height>607</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -85,7 +85,7 @@ QPushButton#login_button{
          </size>
         </property>
         <property name="text">
-         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Register&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Kayıt ol&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
@@ -94,6 +94,19 @@ QPushButton#login_button{
       </item>
       <item>
        <widget class="QLineEdit" name="lineEdit">
+        <property name="text">
+         <string>Ad Soyad</string>
+        </property>
+        <property name="placeholderText">
+         <string>Email</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="lineEdit_4">
+        <property name="text">
+         <string>Eposta</string>
+        </property>
         <property name="placeholderText">
          <string>Email</string>
         </property>
@@ -101,6 +114,9 @@ QPushButton#login_button{
       </item>
       <item>
        <widget class="QLineEdit" name="lineEdit_2">
+        <property name="text">
+         <string>Cep telefonu</string>
+        </property>
         <property name="placeholderText">
          <string>Password</string>
         </property>
@@ -109,7 +125,7 @@ QPushButton#login_button{
       <item>
        <widget class="QLineEdit" name="lineEdit_3">
         <property name="text">
-         <string>Password Again</string>
+         <string>Şifre</string>
         </property>
         <property name="placeholderText">
          <string>Password</string>
@@ -119,7 +135,7 @@ QPushButton#login_button{
       <item>
        <widget class="QPushButton" name="signup_button">
         <property name="text">
-         <string>Sign Up</string>
+         <string>Kayıt Ol</string>
         </property>
        </widget>
       </item>
@@ -167,7 +183,7 @@ QPushButton#login_button{
             </font>
            </property>
            <property name="text">
-            <string>Log in</string>
+            <string>Giriş Yap</string>
            </property>
           </widget>
          </item>
