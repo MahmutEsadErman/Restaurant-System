@@ -11,9 +11,9 @@ class OrderWindow(QMainWindow):
         super().__init__()
         # Load the ui file
         if __name__ == "__main__":
-            ui_file_name = "../uifolder/order.ui"
+            ui_file_name = "../uifolder/Order.ui"
         else:
-            ui_file_name = "uifolder/order.ui"
+            ui_file_name = "uifolder/Order.ui"
         ui_file = QFile(ui_file_name)
         self.ui = QUiLoader().load(ui_file)
         self.setCentralWidget(self.ui)

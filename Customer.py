@@ -7,6 +7,7 @@ from General.RegisterWindow import RegisterWindow
 from Customer.MainMenu import MainMenu
 from Customer.OrderWindow import OrderWindow
 
+
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -39,8 +40,6 @@ class MainWindow(QMainWindow):
 
         #  SET BUTTONS
         #  Main Window buttons
-
-
 
     def buttonFunctions(self):
         button = self.sender()

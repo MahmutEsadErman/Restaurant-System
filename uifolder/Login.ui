@@ -151,6 +151,9 @@ QPushButton#minimize_button{
        </item>
        <item>
         <widget class="QLineEdit" name="lineEdit">
+         <property name="text">
+          <string/>
+         </property>
          <property name="placeholderText">
           <string>Email</string>
          </property>
