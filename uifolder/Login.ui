@@ -142,7 +142,7 @@ QPushButton#minimize_button{
           </size>
          </property>
          <property name="text">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Sign In&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Log In&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
          </property>
          <property name="alignment">
           <set>Qt::AlignCenter</set>
@@ -169,7 +169,7 @@ QPushButton#minimize_button{
        <item>
         <widget class="QPushButton" name="login_button">
          <property name="text">
-          <string>Sign In</string>
+          <string>Log In</string>
          </property>
         </widget>
        </item>
@@ -223,7 +223,7 @@ QPushButton#minimize_button{
            </widget>
           </item>
           <item>
-           <widget class="QPushButton" name="forgot_button">
+           <widget class="QPushButton" name="register_button">
             <property name="font">
              <font>
               <pointsize>-1</pointsize>

@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtCore import Qt, QFile
 
 
-class MainMenu(QMainWindow):
+class ReservationWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         # Load the ui file
@@ -21,6 +21,6 @@ class MainMenu(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = MainMenu()
+    window = ReservationWindow()
     window.show()
     sys.exit(app.exec())

@@ -3,7 +3,7 @@ import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidget, QVBoxLayout, QWidget, QTableWidgetItem, \
     QPushButton, QMessageBox, QAbstractItemView, QInputDialog
 
-
+# !! Bunun diğerinden farkı sadece bir hesabınkini değil bütün yorumları görecek olması
 class HistoryWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -19,6 +19,8 @@ class HistoryWindow(QMainWindow):
 
         self.load_orders()  # Sipariş verilerini yükler
 
+        print(self.table.item(1, 1).text())
+
         layout = QVBoxLayout()
         layout.addWidget(self.table)
         central_widget = QWidget()
@@ -30,7 +32,7 @@ class HistoryWindow(QMainWindow):
         QMessageBox.information(self, "Bilgi", self.table.item(row, column).text())
 
     def load_orders(self):
-        # Örnek veriler
+        # Örnek veriler KHALİLİ
         orders = [
             {"date": "2023-05-01", "items": "Pizza, Kola"},
             {"date": "2023-05-02", "items": "Makarna, Su"},

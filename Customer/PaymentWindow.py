@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow
 from PySide6.QtCore import QFile
 
 
-class LoginWindow(QMainWindow):
+class PaymentWindow(QMainWindow):
     def __init__(self):
         super().__init__()
         # Load the ui file
@@ -20,6 +20,6 @@ class LoginWindow(QMainWindow):
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)
-    window = LoginWindow()
+    window = PaymentWindow()
     window.show()
     sys.exit(app.exec())

@@ -150,7 +150,7 @@ QLabel{
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="pay_button">
           <property name="text">
            <string>Ödemeyi Yap</string>
           </property>
