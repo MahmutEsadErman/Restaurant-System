@@ -2,22 +2,39 @@ import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidget, QVBoxLayout, QWidget, QTableWidgetItem, \
     QPushButton, QMessageBox, QAbstractItemView, QInputDialog
+from PySide6.QtCore import QThread, Signal
 
 
-class HistoryWindow(QMainWindow):
+class UpdateOrdersThread(QThread):
+    data_read = Signal(str)
+
+    def __init__(self):
+        QThread.__init__(self)
+        self.file_path = "dosya.txt"  # Dosya yolu Giriniz halil bey
+
+    def run(self):
+        with open(self.file_path, 'r') as file:
+            while True:
+                data = file.read()
+                self.data_read.emit(data)
+                self.wait(1)
+
+
+class OrdersWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
         self.setWindowTitle("Siparişler")
 
         self.table = QTableWidget()
-        self.table.setColumnCount(4)
-        self.table.setHorizontalHeaderLabels(["Saat", "Masa No", "Ürünler", "Bitirme"])
+        self.table.setColumnCount(3)  # Tarih, Ürünler, Yorum Butonu
+        self.table.setHorizontalHeaderLabels(["Saat", "Masa no", "Ürünler", "Bitirme"])
 
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table.cellDoubleClicked.connect(self.cell_double_click_event)
 
         # Back Button
+        back_button = QPushButton("Geri dön")
         back_button = QPushButton("Geri dön")
 
         self.load_orders()  # Sipariş verilerini yükler
@@ -28,7 +45,9 @@ class HistoryWindow(QMainWindow):
         central_widget = QWidget()
         central_widget.setLayout(layout)
 
-
+        self.update_orders_thread = UpdateOrdersThread()
+        self.update_orders_thread.data_read.connect(self.load_orders())
+        self.update_orders_thread.start()
 
         self.setCentralWidget(central_widget)
 
@@ -54,18 +73,11 @@ class HistoryWindow(QMainWindow):
             btn_comment.clicked.connect(lambda ch=True, row=i: self.make_comment(row))
             self.table.setCellWidget(i, 2, btn_comment)
 
-    # (WIP)
-    def make_comment(self, row):
-        comment, ok = QInputDialog().getText(None, "Input Dialog", "Bir metin girin:")
-        if ok and comment:
-            self.table.setCellWidget(row, 2, None)
-            self.table.setItem(row, 2, QTableWidgetItem(comment))
-
-        # Save comment to the database
+    # (WIP) KHALİLİ  Garsonun Sistemi belli bir saniyede bi rgüncellenecekki yeni siparişler gözüksün
 
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = HistoryWindow()
+    window = OrdersWindow()
     window.show()
     sys.exit(app.exec())
