@@ -1,7 +1,7 @@
 import sys
 
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PySide6.QtCore import Qt, QFile
 
 
@@ -38,11 +38,15 @@ class RegisterWindow(QMainWindow):
                 k_adlari.append(bilgiler[1])
 
         if kullanici_adi in k_adlari:
-            print("Kullanıcı adı alınmış")
+            QMessageBox.warning(self, "Uyarı", "Bu kullanıcı adı zaten alınmış.")
+            return False
+
+        # !! Telefon Numarası Kontrolü ve Email Kontrolü Eklenecek
 
         else:
             with open("database/kullanicilar.txt", "a") as dosya:
                 dosya.write(ad_soyad + "-" + kullanici_adi + "-" + cep_telefonu + "-" + sifre + "\n")
+            return True
 
 
 if __name__ == "__main__":

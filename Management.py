@@ -2,15 +2,17 @@ import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget
 
+from Customer.MainMenu import MainMenu
 from General.LoginWindow import LoginWindow
 from General.RegisterWindow import RegisterWindow
+
 
 class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
         # Set Window Title
-        self.setWindowTitle("Restoran Sistemi (Müşteri)")
+        self.setWindowTitle("Restoran Sistemi (Yönetici)")
 
         # Set initial windows size
         self.screenSize = QApplication.primaryScreen().size()
@@ -23,9 +25,11 @@ class MainWindow(QMainWindow):
         self.stackedWidget = QStackedWidget()
         self.loginWindow = LoginWindow()
         self.registerWindow = RegisterWindow()
+        self.mainmenu = MainMenu()
 
         self.stackedWidget.addWidget(self.loginWindow)
         self.stackedWidget.addWidget(self.registerWindow)
+        self.stackedWidget.addWidget(self.mainmenu)
         self.stackedWidget.setCurrentWidget(self.loginWindow)
 
         # Add Stacked Widget to the layout
@@ -33,16 +37,10 @@ class MainWindow(QMainWindow):
 
         #  SET BUTTONS
         #  Main Window buttons
+        self.loginWindow.ui.login_button.clicked.connect()
 
-
-
-    def buttonFunctions(self):
-        button = self.sender()
-
-        # PAGE WIDGETS
-        # if button.objectName() == "btn_targets_page":
-        #     self.stackedWidget.setCurrentWidget(self.targetspage)
-        #     self.label_top_info_2.setText("| Targets")
+    def gotoPage(self, window):
+        self.stackedWidget.setCurrentWidget(window)
 
 
 if __name__ == "__main__":

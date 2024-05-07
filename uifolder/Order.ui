@@ -115,7 +115,7 @@ QLabel{
         </property>
         <layout class="QHBoxLayout" name="horizontalLayout">
          <item>
-          <widget class="QPushButton" name="exit_button">
+          <widget class="QPushButton" name="back_button">
            <property name="minimumSize">
             <size>
              <width>200</width>

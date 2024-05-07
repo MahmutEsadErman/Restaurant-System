@@ -95,40 +95,40 @@ QPushButton#login_button{
       <item>
        <widget class="QLineEdit" name="lineEdit">
         <property name="text">
-         <string>Ad Soyad</string>
+         <string/>
         </property>
         <property name="placeholderText">
-         <string>Email</string>
+         <string>Ad Soyad</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLineEdit" name="lineEdit_4">
         <property name="text">
-         <string>Eposta</string>
+         <string/>
         </property>
         <property name="placeholderText">
-         <string>Email</string>
+         <string>Eposta</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLineEdit" name="lineEdit_2">
         <property name="text">
-         <string>Cep telefonu</string>
+         <string/>
         </property>
         <property name="placeholderText">
-         <string>Password</string>
+         <string>Cep telefonu</string>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLineEdit" name="lineEdit_3">
         <property name="text">
-         <string>Şifre</string>
+         <string/>
         </property>
         <property name="placeholderText">
-         <string>Password</string>
+         <string>Şifre</string>
         </property>
        </widget>
       </item>

@@ -1,2 +1,3 @@
 kiraz 50
 elma 5
+muz 5

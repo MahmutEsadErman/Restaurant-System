@@ -19,8 +19,12 @@ class HistoryWindow(QMainWindow):
 
         self.load_orders()  # Sipariş verilerini yükler
 
+        # Back Button
+        self.back_button = QPushButton("Geri dön")
+
         layout = QVBoxLayout()
         layout.addWidget(self.table)
+        layout.addWidget(self.back_button)
         central_widget = QWidget()
         central_widget.setLayout(layout)
 

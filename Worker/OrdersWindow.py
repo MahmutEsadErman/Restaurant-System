@@ -6,18 +6,15 @@ from PySide6.QtCore import QThread, Signal
 
 
 class UpdateOrdersThread(QThread):
-    data_read = Signal(str)
+    data_read = Signal()
 
     def __init__(self):
         QThread.__init__(self)
-        self.file_path = "dosya.txt"  # Dosya yolu Giriniz halil bey
 
     def run(self):
-        with open(self.file_path, 'r') as file:
-            while True:
-                data = file.read()
-                self.data_read.emit(data)
-                self.wait(1)
+        while True:
+            self.data_read.emit()
+            self.wait(1)
 
 
 class OrdersWindow(QMainWindow):
@@ -35,36 +32,36 @@ class OrdersWindow(QMainWindow):
 
         # Back Button
         back_button = QPushButton("Geri dön")
-        back_button = QPushButton("Geri dön")
 
         self.load_orders()  # Sipariş verilerini yükler
 
+        # Set the layout
         layout = QVBoxLayout()
         layout.addWidget(self.table)
         layout.addWidget(back_button)
         central_widget = QWidget()
         central_widget.setLayout(layout)
+        self.setCentralWidget(central_widget)
 
+        # Start the thread
         self.update_orders_thread = UpdateOrdersThread()
         self.update_orders_thread.data_read.connect(self.load_orders())
         self.update_orders_thread.start()
 
-        self.setCentralWidget(central_widget)
-
     def cell_double_click_event(self, row, column):
         QMessageBox.information(self, "Bilgi", self.table.item(row, column).text())
 
-    def load_orders(self):
-        # Örnek veriler
-        orders = [
+    def load_orders(self, data):
+        # Örnek veriler !! Khalili bunu dosyadan okuyacak şekilde düzenlemek lazım
+        data = orders = [
             {"date": "2023-05-01", "items": "Pizza, Kola"},
             {"date": "2023-05-02", "items": "Makarna, Su"},
             {"date": "2023-05-03", "items": "Salata, Ayran"},
             {"date": "2023-05-04", "items": "Kebap, Ayran"}
         ]
 
-        self.table.setRowCount(len(orders))
-        for i, order in enumerate(orders):
+        self.table.setRowCount(len(data))
+        for i, order in enumerate(data):
             self.table.setItem(i, 0, QTableWidgetItem(order["date"]))
             self.table.setItem(i, 1, QTableWidgetItem(order["items"]))
 
@@ -73,7 +70,7 @@ class OrdersWindow(QMainWindow):
             btn_comment.clicked.connect(lambda ch=True, row=i: self.make_comment(row))
             self.table.setCellWidget(i, 2, btn_comment)
 
-    # (WIP) KHALİLİ  Garsonun Sistemi belli bir saniyede bi rgüncellenecekki yeni siparişler gözüksün
+    # (WIP) KHALİLİ  Garsonun Sistemi belli bir saniyede bir güncellenecekki yeni siparişler gözüksün
 
 
 if __name__ == '__main__':

@@ -1,6 +1,6 @@
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget
+from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget, QMessageBox
 
 from General.LoginWindow import LoginWindow
 from General.RegisterWindow import RegisterWindow
@@ -45,33 +45,38 @@ class MainWindow(QMainWindow):
         # Add Stacked Widget to the layout
         self.setCentralWidget(self.stackedWidget)
 
-        #  SET BUTTONS
-        self.loginWindow.ui.login_button.clicked.connect(self.buttonFunctions)
-        self.loginWindow.ui.register_button.clicked.connect(self.buttonFunctions)
-        # self.registerWindow.ui.register_button.clicked.connect(self.buttonFunctions)
-        self.mainmenu.ui.button1.clicked.connect(self.buttonFunctions)
-        self.mainmenu.ui.button2.clicked.connect(self.buttonFunctions)
-        self.mainmenu.ui.button3.clicked.connect(self.buttonFunctions)
-        self.reservationWindow.ui.exit_button.clicked.connect(self.buttonFunctions)
-        self.orderWindow.ui.exit_button.clicked.connect(self.buttonFunctions)
+        #  SET BUTTONS FUNCTIONS
+        # Login Window
+        self.loginWindow.ui.login_button.clicked.connect(self.login)
+        self.loginWindow.ui.register_button.clicked.connect(lambda: self.gotoPage(self.registerWindow))
+        # Register Window
+        self.registerWindow.ui.signup_button.clicked.connect(self.register)
+        self.registerWindow.ui.login_button.clicked.connect(lambda: self.gotoPage(self.loginWindow))
+        # MainMenu Window
+        self.mainmenu.ui.button1.clicked.connect(lambda: self.gotoPage(self.reservationWindow))
+        self.mainmenu.ui.button2.clicked.connect(lambda: self.gotoPage(self.orderWindow))
+        self.mainmenu.ui.button3.clicked.connect(lambda: self.gotoPage(self.historyWindow))
+        self.mainmenu.ui.button4.clicked.connect(lambda: self.gotoPage(self.loginWindow))
+        # Order Window
+        self.orderWindow.ui.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
+        # Reservation Window
+        self.reservationWindow.ui.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
+        # History Window
+        self.historyWindow.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
 
 
-    def buttonFunctions(self):
-        button = self.sender()
-        # PAGE WIDGETS
-        if button.objectName() == "exit_button":
-            self.stackedWidget.setCurrentWidget(self.mainmenu)
-        if button.objectName() == "login_button":
-            if self.loginWindow.girisYap():
-                self.stackedWidget.setCurrentWidget(self.mainmenu)
-        if button.objectName() == "register_button":
-            self.stackedWidget.setCurrentWidget(self.registerWindow)
-        if button.objectName() == "button1":
-            self.stackedWidget.setCurrentWidget(self.reservationWindow)
-        if button.objectName() == "button2":
-            self.stackedWidget.setCurrentWidget(self.orderWindow)
-        if button.objectName() == "button3":
-            self.stackedWidget.setCurrentWidget(self.historyWindow)
+    def register(self):
+        if self.registerWindow.uyeOl():
+            self.gotoPage(self.loginWindow)
+
+    def login(self):
+        if self.loginWindow.girisYap():
+            self.gotoPage(self.mainmenu)
+        else:
+            QMessageBox.warning(self, "Hata", "Kullanıcı adı veya şifre yanlış!")
+
+    def gotoPage(self, window):
+        self.stackedWidget.setCurrentWidget(window)
 
 
 if __name__ == "__main__":

@@ -6,6 +6,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QTableWidg
     QInputDialog
 from PySide6.QtCore import QFile
 
+
 class OrderWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -24,11 +25,9 @@ class OrderWindow(QMainWindow):
 
         with open("database/urun_fiyat.txt", "r") as file:
             for lines in file:
-
                 bilgiler = lines.split(" ")
                 foods.append(bilgiler[0])
                 fiyatlar.append(bilgiler[1])
-
 
         # Set the table properties
         self.ui.table.setSelectionMode(QAbstractItemView.ExtendedSelection)
@@ -77,13 +76,13 @@ class OrderWindow(QMainWindow):
         # To show the selected rows in the selection label
         self.ui.selections_label.setText("Seçtiğiniz Ürünler: ")
         for i in self.row_colors_toggled:
-            self.ui.selections_label.setText(self.ui.selections_label.text()+self.ui.table.item(i, 0).text()+", ")
+            self.ui.selections_label.setText(self.ui.selections_label.text() + self.ui.table.item(i, 0).text() + ", ")
 
         # To show the total price in the total price label
         total_price = 0
         for i in self.row_colors_toggled:
             total_price += int(self.ui.table.item(i, 1).text()) * int(self.ui.table.item(i, 2).text())
-        self.ui.total_price_label.setText("Toplam Fiyat: "+str(total_price)+" TL")
+        self.ui.total_price_label.setText("Toplam Fiyat: " + str(total_price) + " TL")
 
 
 if __name__ == "__main__":
