@@ -19,8 +19,22 @@ class ProductManagementWindow(QMainWindow):
         self.setCentralWidget(self.ui)
         ui_file.close()
 
-        foods = ["börek", "çörek", "kebap"]
-        fiyatlar = ["100", "50", "120"]
+        #************************
+        foods = []
+        fiyatlar = []
+        adetler = []
+
+        with open("../database/urun_fiyat.txt", "r") as file:
+            for lines in file:
+                bilgiler = lines.split(" ")
+                foods.append(bilgiler[0])
+                fiyatlar.append(bilgiler[1])
+
+        with open("../database/stoklar.txt", "r") as file:
+            for lines in file:
+                adetler.append(lines.split(" ")[1])
+
+        #***************************
 
         # Set the table properties
         self.ui.table.setSelectionMode(QAbstractItemView.ExtendedSelection)
@@ -38,7 +52,7 @@ class ProductManagementWindow(QMainWindow):
         for i in range(len(foods)):
             self.ui.table.setItem(i, 0, QTableWidgetItem(foods[i]))
             self.ui.table.setItem(i, 1, QTableWidgetItem(fiyatlar[i]))
-            self.ui.table.setItem(i, 2, QTableWidgetItem(""))
+            self.ui.table.setItem(i, 2, QTableWidgetItem(adetler[i]))
 
         # Set button actions
         self.ui.add_button.clicked.connect(self.add_item)
@@ -54,7 +68,16 @@ class ProductManagementWindow(QMainWindow):
     # (WIP)
     def save_items(self):
         # Khalili
-        pass
+
+        with open("../database/stoklar.txt", "w") as stoklar_file:
+            with open("../database/urun_fiyat.txt", "w") as fiyatlar_file:
+                for i in range(self.ui.table.rowCount()):
+                    urun = self.ui.table.item(i, 0).text().rstrip()
+                    fiyat = self.ui.table.item(i, 1).text().rstrip()
+                    adet = self.ui.table.item(i, 2).text().rstrip()
+
+                    stoklar_file.write(f"{urun} {adet}\n")
+                    fiyatlar_file.write(f"{urun} {fiyat}\n")
 
 
 if __name__ == "__main__":

@@ -1,3 +1,2 @@
-Elma 260
-Armut 310
-Muz 320
+kiraz 50
+elma 5

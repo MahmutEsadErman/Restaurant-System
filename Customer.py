@@ -47,7 +47,7 @@ class MainWindow(QMainWindow):
 
         #  SET BUTTONS
         self.loginWindow.ui.login_button.clicked.connect(self.buttonFunctions)
-        # self.loginWindow.ui.register_button.clicked.connect(self.buttonFunctions)
+        self.loginWindow.ui.register_button.clicked.connect(self.buttonFunctions)
         # self.registerWindow.ui.register_button.clicked.connect(self.buttonFunctions)
         self.mainmenu.ui.button1.clicked.connect(self.buttonFunctions)
         self.mainmenu.ui.button2.clicked.connect(self.buttonFunctions)
@@ -58,12 +58,14 @@ class MainWindow(QMainWindow):
 
     def buttonFunctions(self):
         button = self.sender()
-
         # PAGE WIDGETS
         if button.objectName() == "exit_button":
             self.stackedWidget.setCurrentWidget(self.mainmenu)
         if button.objectName() == "login_button":
-            self.stackedWidget.setCurrentWidget(self.mainmenu)
+            if self.loginWindow.girisYap():
+                self.stackedWidget.setCurrentWidget(self.mainmenu)
+        if button.objectName() == "register_button":
+            self.stackedWidget.setCurrentWidget(self.registerWindow)
         if button.objectName() == "button1":
             self.stackedWidget.setCurrentWidget(self.reservationWindow)
         if button.objectName() == "button2":

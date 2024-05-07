@@ -8,27 +8,21 @@ class HistoryWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
-        self.setWindowTitle("Siparişler")
+        self.setWindowTitle("Geçmiş Siparişler")
 
         self.table = QTableWidget()
-        self.table.setColumnCount(4)
-        self.table.setHorizontalHeaderLabels(["Saat", "Masa No", "Ürünler", "Bitirme"])
+        self.table.setColumnCount(3)  # Tarih, Ürünler, Yorum Butonu
+        self.table.setHorizontalHeaderLabels(["Tarih", "Ürünler", "Yorum"])
 
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table.cellDoubleClicked.connect(self.cell_double_click_event)
-
-        # Back Button
-        back_button = QPushButton("Geri dön")
 
         self.load_orders()  # Sipariş verilerini yükler
 
         layout = QVBoxLayout()
         layout.addWidget(self.table)
-        layout.addWidget(back_button)
         central_widget = QWidget()
         central_widget.setLayout(layout)
-
-
 
         self.setCentralWidget(central_widget)
 
@@ -37,12 +31,15 @@ class HistoryWindow(QMainWindow):
 
     def load_orders(self):
         # Örnek veriler
-        orders = [
-            {"date": "2023-05-01", "items": "Pizza, Kola"},
-            {"date": "2023-05-02", "items": "Makarna, Su"},
-            {"date": "2023-05-03", "items": "Salata, Ayran"},
-            {"date": "2023-05-04", "items": "Kebap, Ayran"}
-        ]
+        #*********************
+        orders = []
+
+        with open("database/siparisler.txt", "r") as file:
+
+            for satir in file:
+                bilgiler = satir.split(" ")
+                orders.append({"date": bilgiler[1], "items": bilgiler[4]})
+
 
         self.table.setRowCount(len(orders))
         for i, order in enumerate(orders):
@@ -51,17 +48,20 @@ class HistoryWindow(QMainWindow):
 
             # Add Comment Button
             btn_comment = QPushButton('Yorum Yap')
-            btn_comment.clicked.connect(lambda ch=True, row=i: self.make_comment(row))
+            btn_comment.clicked.connect(lambda ch=True, row=i: self.make_comment(row, i, orders))
             self.table.setCellWidget(i, 2, btn_comment)
 
     # (WIP)
-    def make_comment(self, row):
+    def make_comment(self, row, i, orders):
         comment, ok = QInputDialog().getText(None, "Input Dialog", "Bir metin girin:")
         if ok and comment:
             self.table.setCellWidget(row, 2, None)
             self.table.setItem(row, 2, QTableWidgetItem(comment))
 
+        #YORUMU YAPAN KULLANICI????????????
         # Save comment to the database
+        with open("database/yorumlar.txt", "a") as file:
+            file.write(orders[i]["date"] + "," + orders[i]["items"] + "," + comment+"\n")
 
 
 if __name__ == '__main__':

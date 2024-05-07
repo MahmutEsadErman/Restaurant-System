@@ -18,7 +18,24 @@ class LoginWindow(QMainWindow):
         ui_file.close()
         self.setCentralWidget(self.ui)
 
-        self.ui.login_button.clicked.connect(lambda : print("Login"))
+        #self.ui.login_button.clicked.connect()
+
+    def girisYap(self):
+
+        kullanici_adi = self.ui.lineEdit.text()
+        sifre = self.ui.lineEdit_2.text()
+
+        with open("database/kullanicilar.txt", "r") as dosya:
+
+            for satir in dosya:
+                bilgiler = satir.strip().split("-")
+                if bilgiler[1] == kullanici_adi and bilgiler[3] == sifre:
+                    return True
+
+        return False
+
+
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

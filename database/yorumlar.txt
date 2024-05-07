@@ -1,5 +1,6 @@
-kullanici1 2023-04-20 14:30 Bu üründen çok memnun kaldım!
- 
-kullanici2 2023-04-21 16:45 Teslimat çok gecikti, memnun kalmadım.
- 
-kullanici3 2023-04-22 12:00 Mükemmel hizmet, teşekkürler.
+2023-04-20,elma-elma-armut,merhaba
+2023-04-20,elma-elma-armut,Begendim Guzeldi
+2023-04-20,elma-elma-armut,Hic begenmedim kotuydu
+2023-04-20,elma-elma-armut,Bilmiyorum arada kaldim
+2023-04-20,elma-elma-armut,Cok begendim harika bir yemekti
+2023-04-20,elma-elma-armut,merhabalar herkese

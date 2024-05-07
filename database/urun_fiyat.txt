@@ -1,6 +1,2 @@
-Elma 70
-
-Armut 80
-
-Muz 90
-
+kiraz 80
+elma 10

@@ -18,6 +18,32 @@ class RegisterWindow(QMainWindow):
         ui_file.close()
         self.setCentralWidget(self.ui)
 
+        self.ui.signup_button.clicked.connect(lambda: self.uyeOl())
+
+    def uyeOl(self):
+
+        ad_soyad = self.ui.lineEdit.text()
+
+        kullanici_adi = self.ui.lineEdit_4.text()
+
+        cep_telefonu = self.ui.lineEdit_2.text()
+
+        sifre = self.ui.lineEdit_3.text()
+
+        k_adlari = []
+
+        with open("database/kullanicilar.txt", "r") as dosya:
+            for satir in dosya:
+                bilgiler = satir.strip().split("-")
+                k_adlari.append(bilgiler[1])
+
+        if kullanici_adi in k_adlari:
+            print("Kullanıcı adı alınmış")
+
+        else:
+            with open("database/kullanicilar.txt", "a") as dosya:
+                dosya.write(ad_soyad + "-" + kullanici_adi + "-" + cep_telefonu + "-" + sifre + "\n")
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

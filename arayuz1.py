@@ -17,11 +17,13 @@ def verify_customer_login(username, password):
             pass
     return False
 
+
 # Kullanıcıları.txt dosyasına kaydetme
 def save_new_customer(full_name, username, password):
     with open("database/kullanicilar.txt", "a") as file:
         file.write(f"{full_name}-{username}-{password}\n")
     messagebox.showinfo("Kayıt Başarılı", "Başarıyla kaydedildi!")
+
 
 # Ana menü
 def main_menu():
@@ -29,6 +31,7 @@ def main_menu():
     tk.Button(frame, text="Yönetim Girişi", command=admin_login_screen).pack(fill='x')
     tk.Button(frame, text="Müşteri Girişi", command=customer_menu).pack(fill='x')
     tk.Button(frame, text="Çalışan Girişi", command=employee_login_screen).pack(fill='x')
+
 
 # Yönetim giriş ekranı
 def admin_login_screen():
@@ -42,6 +45,7 @@ def admin_login_screen():
     password_entry.pack()
     tk.Button(frame, text="Giriş Yap", command=lambda: verify_admin(username_entry.get(), password_entry.get())).pack()
     tk.Button(frame, text="Geri", command=main_menu).pack()
+
 
 # Ana menü fonksiyonları
 def fiyatlari_belirle():

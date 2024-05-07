@@ -19,8 +19,16 @@ class OrderWindow(QMainWindow):
         self.setCentralWidget(self.ui)
         ui_file.close()
 
-        foods = ["börek", "çörek", "kebap"]
-        fiyatlar = ["100", "50", "120"]
+        foods = []
+        fiyatlar = []
+
+        with open("database/urun_fiyat.txt", "r") as file:
+            for lines in file:
+
+                bilgiler = lines.split(" ")
+                foods.append(bilgiler[0])
+                fiyatlar.append(bilgiler[1])
+
 
         # Set the table properties
         self.ui.table.setSelectionMode(QAbstractItemView.ExtendedSelection)
