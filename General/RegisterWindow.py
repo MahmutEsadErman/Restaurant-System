@@ -32,7 +32,7 @@ class RegisterWindow(QMainWindow):
 
         k_adlari = []
 
-        with open("database/kullanicilar.txt", "r") as dosya:
+        with open("database/kullanicilar.txt", "r", encoding='utf-8') as dosya:
             for satir in dosya:
                 bilgiler = satir.strip().split("-")
                 k_adlari.append(bilgiler[1])
@@ -44,7 +44,7 @@ class RegisterWindow(QMainWindow):
         # !! Telefon Numarası Kontrolü ve Email Kontrolü Eklenecek
 
         else:
-            with open("database/kullanicilar.txt", "a") as dosya:
+            with open("database/kullanicilar.txt", "a", encoding='utf-8') as dosya:
                 dosya.write(ad_soyad + "-" + kullanici_adi + "-" + cep_telefonu + "-" + sifre + "\n")
             return True
 

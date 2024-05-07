@@ -25,7 +25,7 @@ class LoginWindow(QMainWindow):
         kullanici_adi = self.ui.lineEdit.text()
         sifre = self.ui.lineEdit_2.text()
 
-        with open("database/kullanicilar.txt", "r") as dosya:
+        with open("database/kullanicilar.txt", "r", encoding='utf-8') as dosya:
 
             for satir in dosya:
                 bilgiler = satir.strip().split("-")

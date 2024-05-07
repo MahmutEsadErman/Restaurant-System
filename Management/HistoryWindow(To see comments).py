@@ -38,11 +38,12 @@ class HistoryWindow(QMainWindow):
 
         orders = []
 
-        with open("../database/yorumlar.txt", "r") as file:
+        with open("../database/siparisler.txt", "r", encoding='utf-8') as file:
 
             for satir in file:
                 bilgiler = satir.strip().split(",")
-                orders.append({"date": bilgiler[0], "items": bilgiler[1], "yorum": bilgiler[2]})
+                if bilgiler[5] != "x":
+                    orders.append({"date": bilgiler[1], "items": bilgiler[3], "yorum": bilgiler[5]})
 
         self.table.setRowCount(len(orders))
         for i, order in enumerate(orders):

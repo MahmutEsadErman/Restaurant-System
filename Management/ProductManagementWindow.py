@@ -24,13 +24,13 @@ class ProductManagementWindow(QMainWindow):
         fiyatlar = []
         adetler = []
 
-        with open("../database/urun_fiyat.txt", "r") as file:
+        with open("../database/urun_fiyat.txt", "r", encoding='utf-8') as file:
             for lines in file:
                 bilgiler = lines.split(" ")
                 foods.append(bilgiler[0])
                 fiyatlar.append(bilgiler[1])
 
-        with open("../database/stoklar.txt", "r") as file:
+        with open("../database/stoklar.txt", "r", encoding='utf-8') as file:
             for lines in file:
                 adetler.append(lines.split(" ")[1])
 
@@ -69,8 +69,8 @@ class ProductManagementWindow(QMainWindow):
     def save_items(self):
         # Khalili
 
-        with open("../database/stoklar.txt", "w") as stoklar_file:
-            with open("../database/urun_fiyat.txt", "w") as fiyatlar_file:
+        with open("../database/stoklar.txt", "w", encoding='utf-8') as stoklar_file:
+            with open("../database/urun_fiyat.txt", "w", encoding='utf-8') as fiyatlar_file:
                 for i in range(self.ui.table.rowCount()):
                     urun = self.ui.table.item(i, 0).text().rstrip()
                     fiyat = self.ui.table.item(i, 1).text().rstrip()

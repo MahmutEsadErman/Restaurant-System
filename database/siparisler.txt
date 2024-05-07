@@ -1,3 +1,5 @@
-halil 2023-04-20 21:10 5 muz-muz-armut 140
-enes 2023-04-20 21:40 5 muz-elma-armut 160
-ali 2023-04-20 22:00 5 elma-elma-armut 115
+halil,2023-04-20,21:10,muz-muz-armut,140,yemek güzeldi
+enes,2023-04-20,21:40,muz-elma-armut,160,Eh işte
+ahmet,2023-06-10,22:00,muz-elma-armut,115,x
+kerim,2023-05-8,22:00,elma-kiraz-armut,115,x
+ali,2023-04-20,22:00,elma-elma,115,cok kötüydü

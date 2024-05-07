@@ -23,7 +23,7 @@ class OrderWindow(QMainWindow):
         foods = []
         fiyatlar = []
 
-        with open("database/urun_fiyat.txt", "r") as file:
+        with open("database/urun_fiyat.txt", "r", encoding='utf-8') as file:
             for lines in file:
                 bilgiler = lines.split(" ")
                 foods.append(bilgiler[0])
