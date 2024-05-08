@@ -1,3 +1,3 @@
-kiraz 80
-elma 75
-muz 86
+kiraz 78
+elma 74
+muz 85

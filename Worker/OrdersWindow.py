@@ -71,11 +71,32 @@ class OrdersWindow(QMainWindow):
             self.table.setItem(i, 2, QTableWidgetItem(order["items"]))
 
             # Add Comment Button
-            btn_comment = QPushButton('Yorum Yap')
+            btn_comment = QPushButton('Bitti')
             btn_comment.clicked.connect(lambda ch=True, row=i: self.make_comment(row))
             self.table.setCellWidget(i, 3, btn_comment)
 
     # (WIP) KHALİLİ  Garsonun Sistemi belli bir saniyede bir güncellenecekki yeni siparişler gözüksün
+
+    def make_comment(self, row):
+        orders = []
+        with open("../database/aktif_siparisler.txt", "r", encoding='utf-8') as file:
+
+            for satir in file:
+                bilgiler = satir.strip().split(",")
+                orders.append({"k_adi": bilgiler[0], "masa": bilgiler[1], "r_tarih": bilgiler[2], "r_saat": bilgiler[3],
+                               "tarih": bilgiler[4], "saat": bilgiler[5], "items": bilgiler[6], "fiyat": bilgiler[7]})
+
+            del orders[row]
+
+        with open("../database/aktif_siparisler.txt", "w", encoding='utf-8') as file:
+            for order in orders:
+
+                order_line = ",".join([
+                    order["k_adi"], order["masa"], order["r_tarih"], order["r_saat"],
+                    order["tarih"], order["saat"], order["items"], order["fiyat"]
+                ])
+                file.write(order_line + "\n")
+        self.load_orders()
 
 
 if __name__ == '__main__':
