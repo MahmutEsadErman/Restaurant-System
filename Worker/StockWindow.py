@@ -47,8 +47,8 @@ class StockWindow(QMainWindow):
 
         # Set the table headers
         self.ui.table.setRowCount(len(foods))
-        self.ui.table.setColumnCount(2)
-        self.ui.table.setHorizontalHeaderLabels(("Ürün", "Adet"))
+        self.ui.table.setColumnCount(3)
+        self.ui.table.setHorizontalHeaderLabels(("Ürün", "Adet", "Gider"))
 
         # Set the table items
         for i in range(len(foods)):

@@ -8,7 +8,6 @@ from Customer.MainMenu import MainMenu
 from Customer.OrderWindow import OrderWindow
 from Customer.ReservationWindow import ReservationWindow
 from Customer.HistoryWindow import HistoryWindow
-from Customer.PaymentWindow import PaymentWindow
 
 
 class MainWindow(QMainWindow):

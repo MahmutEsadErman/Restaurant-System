@@ -3,6 +3,8 @@ import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidget, QVBoxLayout, QWidget, QTableWidgetItem, \
     QPushButton, QMessageBox, QAbstractItemView, QInputDialog
 
+from Customer.OrderWindow import OrderWindow
+
 
 class HistoryWindow(QMainWindow):
     def __init__(self):
@@ -11,8 +13,8 @@ class HistoryWindow(QMainWindow):
         self.setWindowTitle("Geçmiş Siparişler")
 
         self.table = QTableWidget()
-        self.table.setColumnCount(3)  # Tarih, Ürünler, Yorum Butonu
-        self.table.setHorizontalHeaderLabels(["Tarih", "Ürünler", "Yorum"])
+        self.table.setColumnCount(4)  # Tarih, Ürünler, Yorum Butonu
+        self.table.setHorizontalHeaderLabels(["Tarih", "Ürünler", "Yorum", "Sipariş Durumu"])
 
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table.cellDoubleClicked.connect(self.cell_double_click_event)
@@ -33,6 +35,7 @@ class HistoryWindow(QMainWindow):
     def cell_double_click_event(self, row, column):
         QMessageBox.information(self, "Bilgi", self.table.item(row, column).text())
 
+    #!!!!!!!!!!!!!!!!!!!!!!!! Değiştirdiğim yerlere bundan koydum zaten git ten de bakabilirsin
     def load_orders(self):
         # Örnek veriler
         #*********************
@@ -42,7 +45,9 @@ class HistoryWindow(QMainWindow):
 
             for satir in file:
                 bilgiler = satir.strip().split(",")
-                orders.append({"ad": bilgiler[0], "date": bilgiler[1], "time": bilgiler[2], "items": bilgiler[3], "fiyat": bilgiler[4], "yorum": bilgiler[5]})
+                #!!!!!!!!!!!!!!!!!!!!!!!!
+                orders.append({"ad": bilgiler[0], "date": bilgiler[1], "time": bilgiler[2], "items": bilgiler[3],
+                               "fiyat": bilgiler[4], "yorum": bilgiler[5], "siparis": bilgiler[6]})
 
         self.table.setRowCount(len(orders))
         for i, order in enumerate(orders):
@@ -57,7 +62,17 @@ class HistoryWindow(QMainWindow):
             else:
                 self.table.setItem(i, 2, QTableWidgetItem(order["yorum"]))
 
-    # (WIP)
+            #!!!!!!!!!!!!!!!!!!!!!!!!
+            if order["siparis"] == "x":
+                # Add Comment Button
+                btn_comment = QPushButton('Siparis Yap')
+                btn_comment.clicked.connect(lambda ch=True, row=i: self.give_order(row, orders))
+                self.table.setCellWidget(i, 2, btn_comment)
+            else:
+                self.table.setItem(i, 2, QTableWidgetItem("Sipariş Yapıldı"))
+            #!!!!!!!!!!!!!!!!!!!!!!!!
+
+    # (WIP) Khalili
     def make_comment(self, row, orders):
         comment, ok = QInputDialog().getText(None, "Input Dialog", "Bir metin girin:")
         if ok and comment:
@@ -70,7 +85,16 @@ class HistoryWindow(QMainWindow):
 
         with open("database/siparisler.txt", "w", encoding='utf-8') as file:
             for j in range(len(orders)):
-                file.write(orders[j]["ad"] + "," + orders[j]["date"] + "," + orders[j]["time"] + "," + orders[j]["items"] + "," + orders[j]["fiyat"] + "," + orders[j]["yorum"]+"\n")
+                file.write(orders[j]["ad"] + "," + orders[j]["date"] + "," + orders[j]["time"] + "," + orders[j][
+                    "items"] + "," + orders[j]["fiyat"] + "," + orders[j]["yorum"] + "\n")
+
+    # (WIP) Khalili, Esadi
+    # Buraya benim bakmam da gerekebilir Sen Bana haber verirsin Halil abi
+    def give_order(self, row, orders):
+        self.orderwindow = OrderWindow()
+        self.orderwindow.show()
+        self.orderwindow.ui.order_button.clicked.connect(lambda: self.orderwindow.hide())
+        pass
 
 
 if __name__ == '__main__':
