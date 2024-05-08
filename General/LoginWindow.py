@@ -22,15 +22,16 @@ class LoginWindow(QMainWindow):
 
     def girisYap(self):
 
-        kullanici_adi = self.ui.lineEdit.text()
+        e_posta = self.ui.lineEdit.text()
         sifre = self.ui.lineEdit_2.text()
 
         with open("database/kullanicilar.txt", "r", encoding='utf-8') as dosya:
 
             for satir in dosya:
                 bilgiler = satir.strip().split("-")
-                if bilgiler[1] == kullanici_adi and bilgiler[3] == sifre:
-                    return True
+                if bilgiler[2] == e_posta and bilgiler[4] == sifre:
+                    k_adi = bilgiler[1]
+                    return True, k_adi
 
         return False
 

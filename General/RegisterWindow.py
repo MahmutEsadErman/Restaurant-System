@@ -24,24 +24,34 @@ class RegisterWindow(QMainWindow):
 
         ad_soyad = self.ui.lineEdit.text()
 
-        kullanici_adi = self.ui.lineEdit_4.text()
+        kullanici_adi = self.ui.lineEdit_5.text()
+
+        e_posta = self.ui.lineEdit_4.text()
 
         cep_telefonu = self.ui.lineEdit_2.text()
 
         sifre = self.ui.lineEdit_3.text()
 
         k_adlari = []
+        mailler = []
+        numaralar = []
 
         with open("database/kullanicilar.txt", "r", encoding='utf-8') as dosya:
             for satir in dosya:
                 bilgiler = satir.strip().split("-")
                 k_adlari.append(bilgiler[1])
+                mailler.append(bilgiler[2])
+                numaralar.append(bilgiler[3])
 
         if kullanici_adi in k_adlari:
             QMessageBox.warning(self, "Uyarı", "Bu kullanıcı adı zaten alınmış.")
             return False
-
-        # !! Telefon Numarası Kontrolü ve Email Kontrolü Eklenecek
+        elif e_posta in mailler:
+            QMessageBox.warning(self, "Uyarı", "Bu E-posta zaten alınmış.")
+            return False
+        elif cep_telefonu in numaralar:
+            QMessageBox.warning(self, "Uyarı", "Bu telefon numarası zaten alınmış.")
+            return False
 
         else:
             with open("database/kullanicilar.txt", "a", encoding='utf-8') as dosya:

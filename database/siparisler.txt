@@ -1,5 +1,7 @@
-halil,2023-04-20,21:10,muz-muz-armut,140,yemek güzeldi
-enes,2023-04-20,21:40,muz-elma-armut,160,Eh işte
-ahmet,2023-06-10,22:00,muz-elma-armut,115,x
-kerim,2023-05-8,22:00,elma-kiraz-armut,115,x
-ali,2023-04-20,22:00,elma-elma,115,cok kötüydü
+halil,2023-04-20,21:10,muz-muz-armut,140,yemek güzeldi,asd
+enes,2023-04-20,21:40,muz-elma-armut,160,Eh işte,fa
+ahmet,2023-06-10,22:00,muz-elma-armut,115,iyidir,fasdf
+kerim,2023-05-8,22:00,elma-kiraz-armut,115,x,fd
+ali,2023-04-20,22:00,elma-elma,115,cok kötüydü,xzcv
+e,2024-05-08,20:30,kiraz-muz-muz,100,x,qwerty
+Muhammed Halil Yildiz,2024-05-08,20:31,elma-elma-elma-muz,40,x,qwerty

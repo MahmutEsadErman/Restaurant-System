@@ -14,6 +14,8 @@ class MainWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
+        self.k_adi = None
+
         # Set Window Title
         self.setWindowTitle("Restoran Sistemi (Müşteri)")
 
@@ -62,15 +64,19 @@ class MainWindow(QMainWindow):
         self.reservationWindow.ui.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
         # History Window
         self.historyWindow.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
-
+        self.orderWindow.ui.order_button.clicked.connect(self.orderWindow.siparisVer)
 
     def register(self):
         if self.registerWindow.uyeOl():
             self.gotoPage(self.loginWindow)
 
     def login(self):
-        if self.loginWindow.girisYap():
+        success, k_adi = self.loginWindow.girisYap()
+        if success:
+            self.k_adi = k_adi
             self.gotoPage(self.mainmenu)
+
+            self.orderWindow.k_adi = k_adi
         else:
             QMessageBox.warning(self, "Hata", "Kullanıcı adı veya şifre yanlış!")
 

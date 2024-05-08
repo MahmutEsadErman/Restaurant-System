@@ -90,11 +90,13 @@ class HistoryWindow(QMainWindow):
 
     # (WIP) Khalili, Esadi
     # Buraya benim bakmam da gerekebilir Sen Bana haber verirsin Halil abi
+    """"
     def give_order(self, row, orders):
         self.orderwindow = OrderWindow()
         self.orderwindow.show()
         self.orderwindow.ui.order_button.clicked.connect(lambda: self.orderwindow.hide())
         pass
+    """
 
 
 if __name__ == '__main__':
