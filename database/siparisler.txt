@@ -6,3 +6,6 @@ e,2023-04-20,22:00,elma-elma,115,cok kötüydü,hfffff
 mhy58,2024-05-08,20:30,kiraz-muz-muz,100,selamlar,hfffff
 mhy58,2024-05-08,20:31,elma-elma-elma-muz,40,çooook begenmedim,hfffff
 e,2024-05-08,22:50,kiraz,80,x,qwerty
+e,2024-05-09,00:22,elma,10,x,qwerty
+e,2024-05-09,00:24,kiraz-muz,90,x,qwerty
+e,2024-05-09,00:36,kiraz,80,x,qwerty

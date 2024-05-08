@@ -108,7 +108,7 @@ class OrderWindow(QMainWindow):
 
         with open("database/stoklar.txt", "w", encoding='utf-8') as dosya:
             for i in range(len(self.stoklar)):
-                dosya.write(self.foods[i] + " " + str(self.stoklar[i])+ "\n")
+                dosya.write(self.foods[i] + " " + str(self.stoklar[i]) + "\n")
 
         siparisler = "-".join("-".join([order[0]] * order[2]) for order in self.orders)
 
@@ -119,9 +119,9 @@ class OrderWindow(QMainWindow):
 
         with open("database/aktif_siparisler.txt", "a", encoding='utf-8') as dosya:
 
-            dosya.write(self.k_adi + "," + "5" + str(datetime.now().date()) + "," + str(datetime.now().strftime("%H:%M")) +
+            dosya.write(self.k_adi + "," + "5" + "," + str(datetime.now().date()) + "," + str(datetime.now().strftime("%H:%M")) +
                         "," + str(datetime.now().date()) + "," + str(datetime.now().strftime("%H:%M")) + "," +
-                        siparisler + str(self.total_price) + "\n")
+                        siparisler + "," + str(self.total_price) + "\n")
 
         with open("database/gelir.txt", "a", encoding='utf-8') as dosya:
             dosya.write(str(datetime.now().year) + " " + str(datetime.now().month) + " " + str(self.total_price) + "\n")
