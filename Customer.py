@@ -77,6 +77,9 @@ class MainWindow(QMainWindow):
             self.gotoPage(self.mainmenu)
 
             self.orderWindow.k_adi = k_adi
+
+            self.historyWindow.k_adi = k_adi
+            self.historyWindow.update_k_adi(k_adi)
         else:
             QMessageBox.warning(self, "Hata", "Kullanıcı adı veya şifre yanlış!")
 

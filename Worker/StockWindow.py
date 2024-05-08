@@ -1,4 +1,5 @@
 import sys
+from datetime import datetime
 
 from PySide6.QtGui import QColor, Qt
 from PySide6.QtUiTools import QUiLoader
@@ -27,13 +28,9 @@ class StockWindow(QMainWindow):
         foods = []
         adetler = []
 
-        with open("../database/urun_fiyat.txt", "r") as file:
-            for lines in file:
-                bilgiler = lines.split(" ")
-                foods.append(bilgiler[0])
-
         with open("../database/stoklar.txt", "r") as file:
             for lines in file:
+                foods.append(lines.split(" ")[0])
                 adetler.append(lines.split(" ")[1])
 
         #***************************
@@ -70,15 +67,18 @@ class StockWindow(QMainWindow):
     def save_items(self):
         # Khalili
 
-        with open("../database/stoklar.txt", "w") as stoklar_file:
-            with open("../database/urun_fiyat.txt", "w") as fiyatlar_file:
-                for i in range(self.ui.table.rowCount()):
-                    urun = self.ui.table.item(i, 0).text().rstrip()
-                    fiyat = self.ui.table.item(i, 1).text().rstrip()
-                    adet = self.ui.table.item(i, 2).text().rstrip()
+        gider = 0
 
-                    stoklar_file.write(f"{urun} {adet}\n")
-                    fiyatlar_file.write(f"{urun} {fiyat}\n")
+        with open("../database/stoklar.txt", "w") as stoklar_file:
+            for i in range(self.ui.table.rowCount()):
+                urun = self.ui.table.item(i, 0).text().rstrip()
+                adet = self.ui.table.item(i, 1).text().rstrip()
+                gider += int(self.ui.table.item(i, 2).text().rstrip())
+
+                stoklar_file.write(f"{urun} {adet}\n")
+
+        with open("../database/gider.txt", "a") as giderler_file:
+            giderler_file.write(str(datetime.now().year) + " " + str(datetime.now().month) + " " + str(gider) + "\n")
 
 
 if __name__ == "__main__":
