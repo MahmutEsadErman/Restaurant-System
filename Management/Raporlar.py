@@ -45,8 +45,8 @@ def yillik_gelir_gider(year):
     income_data = pd.read_csv("../database/gelir.txt", sep=' ', header=None, names=['Year', 'Month', 'Income'])
     outcome_data = pd.read_csv("../database/gider.txt", sep=' ', header=None, names=['Year', 'Month', 'Outcome'])
 
-    income_data = income_data[income_data['Year'] == year]
-    outcome_data = outcome_data[outcome_data['Year'] == year]
+    income_data = income_data.groupby(['Year', 'Month']).sum().reset_index()
+    outcome_data = outcome_data.groupby(['Year', 'Month']).sum().reset_index()
 
     merged_data = pd.merge(income_data, outcome_data, on=['Year', 'Month'], how='outer').fillna(0)
 
@@ -54,17 +54,17 @@ def yillik_gelir_gider(year):
 
     merged_data['Date'] = pd.to_datetime(merged_data[['Year', 'Month']].assign(day=1))
 
-    merged_data = merged_data.groupby('Date')['Difference'].sum().reset_index()
+    merged_data = merged_data[merged_data['Year'] == year]
 
     plt.plot(merged_data['Date'], merged_data['Difference'], marker='o')
     plt.xlabel('Tarih')
     plt.ylabel('Gelir - Gider')
-    plt.title(f'{year} Gelir Gider Farkı')
+    plt.title(f'{year} Yılı Gelir Gider Tablosu')
     plt.xticks(rotation=45)
     plt.tight_layout()
     plt.grid(True)
     plt.show()
 
 
-yillik_gelir_gider(2024)
+yillik_gelir_gider(2023)
 

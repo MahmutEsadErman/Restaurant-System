@@ -115,7 +115,7 @@ class OrderWindow(QMainWindow):
         with open("database/siparisler.txt", "a", encoding='utf-8') as dosya:
 
             dosya.write(self.k_adi + "," + str(datetime.now().date()) + "," + str(datetime.now().strftime("%H:%M")) + "," +
-                        siparisler + "," + str(self.total_price) + ",x,qwerty\n")
+                        siparisler + "," + str(self.total_price) + ",x\n")
 
         with open("database/aktif_siparisler.txt", "a", encoding='utf-8') as dosya:
 

@@ -1,3 +1,5 @@
-kiraz 75
-elma 74
+kiraz 85
+elma 72
 muz 82
+ayva 50
+çilek 35
