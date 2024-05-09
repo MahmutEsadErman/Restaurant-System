@@ -1,5 +1,6 @@
 kiraz 85
-elma 10
+elma 30
 muz 10
 ayva 40
 çilek 25
+kivi 45

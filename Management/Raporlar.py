@@ -3,7 +3,7 @@ import matplotlib.pyplot as plt
 
 
 def yillik_gelir(year):
-    data = pd.read_csv("../database/gelir.txt", sep=' ', header=None, names=['Year', 'Month', 'Price'])
+    data = pd.read_csv("database/gelir.txt", sep=' ', header=None, names=['Year', 'Month', 'Price'])
 
     data = data[data['Year'] == year]
 
@@ -26,7 +26,7 @@ def yillik_gelir(year):
 
 
 def yillik_gider(year):
-    data = pd.read_csv("../database/gider.txt", sep=' ', header=None, names=['Year', 'Month', 'Price'])
+    data = pd.read_csv("database/gider.txt", sep=' ', header=None, names=['Year', 'Month', 'Price'])
 
     data = data[data['Year'] == year]
 
@@ -50,8 +50,8 @@ def yillik_gider(year):
 
 def yillik_gelir_gider(year):
 
-    income_data = pd.read_csv("../database/gelir.txt", sep=' ', header=None, names=['Year', 'Month', 'Income'])
-    outcome_data = pd.read_csv("../database/gider.txt", sep=' ', header=None, names=['Year', 'Month', 'Outcome'])
+    income_data = pd.read_csv("database/gelir.txt", sep=' ', header=None, names=['Year', 'Month', 'Income'])
+    outcome_data = pd.read_csv("database/gider.txt", sep=' ', header=None, names=['Year', 'Month', 'Outcome'])
 
     income_data = income_data.groupby(['Year', 'Month']).sum().reset_index()
     outcome_data = outcome_data.groupby(['Year', 'Month']).sum().reset_index()
@@ -80,7 +80,7 @@ def yillik_gelir_gider(year):
 
 def aylik_gelir(year, month):
     # Read income data
-    income_data = pd.read_csv("../database/gelir.txt", sep=' ', header=None, names=['Year', 'Month', 'Income'])
+    income_data = pd.read_csv("database/gelir.txt", sep=' ', header=None, names=['Year', 'Month', 'Income'])
 
     # Filter income data for the specified year and month
     income_data_month = income_data[(income_data['Year'] == year) & (income_data['Month'] == month)].copy()
@@ -105,7 +105,7 @@ def aylik_gelir(year, month):
 
 def aylik_gider(year, month):
     # Read outcome data
-    outcome_data = pd.read_csv("../database/gider.txt", sep=' ', header=None, names=['Year', 'Month', 'Outcome'])
+    outcome_data = pd.read_csv("database/gider.txt", sep=' ', header=None, names=['Year', 'Month', 'Outcome'])
 
     # Filter outcome data for the specified year and month
     outcome_data_month = outcome_data[(outcome_data['Year'] == year) & (outcome_data['Month'] == month)].copy()
@@ -127,3 +127,4 @@ def aylik_gider(year, month):
     ax.grid(True)
 
     return fig
+

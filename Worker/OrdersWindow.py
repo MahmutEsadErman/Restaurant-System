@@ -22,6 +22,7 @@ class OrdersWindow(QMainWindow):
         # Back Button
         self.back_button = QPushButton("Geri dön")
 
+
         self.load_orders()  # Sipariş verilerini yükler
         self.order_timer = QTimer(self)
         self.order_timer.timeout.connect(self.load_orders)
@@ -44,8 +45,9 @@ class OrdersWindow(QMainWindow):
 
             for satir in file:
                 bilgiler = satir.strip().split(",")
-                map(str.rstrip, bilgiler)
-                data.append({"date": bilgiler[5], "masa": bilgiler[1], "items": bilgiler[6]})
+                #map(str.rstrip, bilgiler)
+                if bilgiler[4] != "x":
+                    data.append({"date": bilgiler[5], "masa": bilgiler[1], "items": bilgiler[6]})
 
         self.table.setRowCount(len(data))
         for i, order in enumerate(data):
@@ -61,25 +63,22 @@ class OrdersWindow(QMainWindow):
     # (WIP) KHALİLİ  Garsonun Sistemi belli bir saniyede bir güncellenecekki yeni siparişler gözüksün
     # Bitti butonuna basıldığında siparişin bitirilmesini sağlar
     def finalize_order(self, row):
-        orders = []
         with open("database/aktif_siparisler.txt", "r", encoding='utf-8') as file:
+            orders = [line.strip().split(",") for line in file]
 
-            for satir in file:
-                bilgiler = satir.strip().split(",")
-                map(str.rstrip, bilgiler)
-                orders.append({"k_adi": bilgiler[0], "masa": bilgiler[1], "r_tarih": bilgiler[2], "r_saat": bilgiler[3],
-                               "tarih": bilgiler[4], "saat": bilgiler[5], "items": bilgiler[6], "fiyat": bilgiler[7]})
+        order_to_remove = (self.table.item(row, 0).text(),  # date
+                           self.table.item(row, 1).text(),  # masa
+                           self.table.item(row, 2).text())  # items
 
-            del orders[row]
+        for order in orders:
+            if (order[5], order[1], order[6]) == order_to_remove:
+                orders.remove(order)
+                break
 
-        with open("database/aktif_siparisler.txt", "w", encoding='utf-8') as file:
+        with open("database/aktif_siparisler.txt", "w", encoding='utf-8') as dosya:
             for order in orders:
+                dosya.write(",".join(order) + "\n")
 
-                order_line = ",".join([
-                    order["k_adi"], order["masa"], order["r_tarih"], order["r_saat"],
-                    order["tarih"], order["saat"], order["items"], order["fiyat"]
-                ])
-                file.write(order_line + "\n")
         self.load_orders()
 
 

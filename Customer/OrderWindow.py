@@ -4,7 +4,7 @@ from datetime import datetime
 from PySide6.QtGui import QColor
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QTableWidget, QTableWidgetItem, QAbstractItemView, \
-    QInputDialog, QHeaderView
+    QInputDialog, QHeaderView, QPushButton, QWidget, QMessageBox
 from PySide6.QtCore import QFile
 
 
@@ -13,6 +13,8 @@ class OrderWindow(QMainWindow):
         super().__init__()
         # Load the ui file
         self.k_adi = None
+        self.order_type = 0
+
         if __name__ == "__main__":
             ui_file_name = "../uifolder/Order.ui"
         else:
@@ -82,7 +84,7 @@ class OrderWindow(QMainWindow):
                 self.ui.table.item(row, j).setBackground(QColor(173, 216, 230))  # Açık mavi renk
             self.ui.table.item(row, 2).setText(str(quantity))
             self.row_colors_toggled[row] = True  # Satırı değiştirildi olarak işaretle
-            self.orders.append((self.ui.table.item(row, 0).text(),int(self.ui.table.item(row, 1).text()),quantity))
+            self.orders.append((self.ui.table.item(row, 0).text(), int(self.ui.table.item(row, 1).text()), quantity))
 
         # To show the selected rows in the selection label
         self.ui.selections_label.setText("Seçtiğiniz Ürünler: ")
@@ -114,18 +116,26 @@ class OrderWindow(QMainWindow):
 
         with open("database/siparisler.txt", "a", encoding='utf-8') as dosya:
 
-            dosya.write(self.k_adi + "," + str(datetime.now().date()) + "," + str(datetime.now().strftime("%H:%M")) + "," +
-                        siparisler + "," + str(self.total_price) + ",x\n")
+            dosya.write(
+                self.k_adi + "," + str(datetime.now().date()) + "," + str(datetime.now().strftime("%H:%M")) + "," +
+                siparisler + "," + str(self.total_price) + ",x\n")
 
-        with open("database/aktif_siparisler.txt", "a", encoding='utf-8') as dosya:
+        # Anında Sipariş Verme
+        if (self.order_type == 0):
+            print("Anında Sipariş Verdik")
+            with open("database/aktif_siparisler.txt", "a", encoding='utf-8') as dosya:
 
-            dosya.write(self.k_adi + "," + "5" + "," + str(datetime.now().date()) + "," + str(datetime.now().strftime("%H:%M")) +
-                        "," + str(datetime.now().date()) + "," + str(datetime.now().strftime("%H:%M")) + "," +
-                        siparisler + "," + str(self.total_price) + "\n")
+                dosya.write(self.k_adi + "," + "5" + "," + str(datetime.now().date()) + "," + str(
+                    datetime.now().strftime("%H:%M")) +
+                            "," + str(datetime.now().date()) + "," + str(datetime.now().strftime("%H:%M")) + "," +
+                            siparisler + "," + str(self.total_price) + "\n")
+
+        # Sonradan Sipariş Verme
+        if (self.order_type == 1):
+            print("Sonradan Sipariş Verdik") #KHALİLİ
 
         with open("database/gelir.txt", "a", encoding='utf-8') as dosya:
             dosya.write(str(datetime.now().year) + " " + str(datetime.now().month) + " " + str(self.total_price) + "\n")
-
         return True
 
 

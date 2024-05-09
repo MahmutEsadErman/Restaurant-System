@@ -17,7 +17,7 @@
    <item row="1" column="0">
     <widget class="QFrame" name="frame">
      <property name="layoutDirection">
-      <enum>Qt::LeftToRight</enum>
+      <enum>Qt::LayoutDirection::LeftToRight</enum>
      </property>
      <property name="styleSheet">
       <string notr="true">QFrame#frame{
@@ -62,10 +62,10 @@ QLabel{
 </string>
      </property>
      <property name="frameShape">
-      <enum>QFrame::NoFrame</enum>
+      <enum>QFrame::Shape::NoFrame</enum>
      </property>
      <property name="frameShadow">
-      <enum>QFrame::Raised</enum>
+      <enum>QFrame::Shadow::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
       <item>
@@ -80,13 +80,16 @@ QLabel{
          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-size:20pt;&quot;&gt;Ödeme Ekranı&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
         </property>
         <property name="alignment">
-         <set>Qt::AlignCenter</set>
+         <set>Qt::AlignmentFlag::AlignCenter</set>
         </property>
        </widget>
       </item>
       <item>
        <widget class="QLineEdit" name="lineEdit">
         <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
          <string>Kart No</string>
         </property>
        </widget>
@@ -94,6 +97,9 @@ QLabel{
       <item>
        <widget class="QLineEdit" name="lineEdit_4">
         <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
          <string>İsim Soyisim</string>
         </property>
        </widget>
@@ -103,6 +109,9 @@ QLabel{
         <item row="0" column="0">
          <widget class="QLineEdit" name="lineEdit_2">
           <property name="text">
+           <string/>
+          </property>
+          <property name="placeholderText">
            <string>Cvv</string>
           </property>
          </widget>
@@ -110,7 +119,10 @@ QLabel{
         <item row="0" column="1">
          <widget class="QLineEdit" name="lineEdit_3">
           <property name="text">
-           <string>Son kullanma Tarihi</string>
+           <string/>
+          </property>
+          <property name="placeholderText">
+           <string>Son Kullanma Tarihi</string>
           </property>
          </widget>
         </item>
@@ -132,7 +144,7 @@ QLabel{
          </widget>
         </item>
         <item>
-         <widget class="QPushButton" name="pushButton">
+         <widget class="QPushButton" name="odeme_butonu">
           <property name="text">
            <string>Ödemeyi Yap</string>
           </property>

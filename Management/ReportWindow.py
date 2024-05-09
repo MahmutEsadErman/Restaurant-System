@@ -2,7 +2,7 @@ import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QWidget, QHBoxLayout, QPushButton, QComboBox
 
-import Raporlar
+from Management import Raporlar
 from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
 
 
@@ -13,7 +13,7 @@ class ReportWindow(QMainWindow):
         self.yillik_gelir = FigureCanvasQTAgg(Raporlar.yillik_gelir(2024))
         self.yillik_gider = FigureCanvasQTAgg(Raporlar.yillik_gider(2024))
         self.yillik_gelir_gider = FigureCanvasQTAgg(Raporlar.yillik_gelir_gider(2024))
-        self.aylik_gelir = FigureCanvasQTAgg(Raporlar.aylik_gelir(2024, 9))
+        self.aylik_gelir = FigureCanvasQTAgg(Raporlar.aylik_gelir(2024, 5))
 
         self.yillik_gelir.setStyleSheet("background-color: red;")
 

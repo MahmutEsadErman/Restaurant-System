@@ -1,5 +1,6 @@
-kiraz 85
-elma 72
-muz 82
-ayva 50
-çilek 35
+kiraz 0
+elma 45
+muz 29
+ayva 20
+çilek 85
+kivi 60
