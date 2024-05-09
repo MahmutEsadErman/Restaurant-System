@@ -18,24 +18,32 @@ class LoginWindow(QMainWindow):
         ui_file.close()
         self.setCentralWidget(self.ui)
 
-        #self.ui.login_button.clicked.connect()
-
-    def girisYap(self):
-
+    def girisYap(self, user_type):
         e_posta = self.ui.lineEdit.text()
         sifre = self.ui.lineEdit_2.text()
 
-        with open("database/kullanicilar.txt", "r", encoding='utf-8') as dosya:
-
-            for satir in dosya:
-                bilgiler = satir.strip().split("-")
-                if bilgiler[2] == e_posta and bilgiler[4] == sifre:
-                    k_adi = bilgiler[1]
-                    return True, k_adi
-
-        return False
-
-
+        if user_type == "customer":
+            with open("database/kullanicilar.txt", "r", encoding='utf-8') as dosya:
+                for satir in dosya:
+                    bilgiler = satir.strip().split("-")
+                    if bilgiler[2] == e_posta and bilgiler[4] == sifre:
+                        k_adi = bilgiler[1]
+                        return True, k_adi
+            return False, None
+        elif user_type == "manager":
+            admin_username = "admin"
+            admin_password = "admin"
+            if e_posta == admin_username and sifre == admin_password:
+                k_adi = admin_username
+                return True, k_adi
+            return False, None
+        elif user_type == "worker":
+            admin_username = "worker"
+            admin_password = "worker"
+            if e_posta == admin_username and sifre == admin_password:
+                k_adi = admin_username
+                return True, k_adi
+            return False, None
 
 
 if __name__ == "__main__":

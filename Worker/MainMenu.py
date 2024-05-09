@@ -19,9 +19,9 @@ class MainMenu(QMainWindow):
         self.setCentralWidget(self.ui)
 
         # Set Button Texts
-        self.ui.button1.setText("Fiyat Yönetimi")
-        self.ui.button2.setText("Yorum ve Şikayetler")
-        self.ui.button3.setText("Raporlar")
+        self.ui.button1.setText("Güncel Siparişler")
+        self.ui.button2.setText("Stok İşlemleri")
+        self.ui.button3.hide()
         self.ui.button4.setText("Çıkış")
 
 

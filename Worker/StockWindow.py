@@ -4,7 +4,7 @@ from datetime import datetime
 from PySide6.QtGui import QColor, Qt
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QTableWidget, QTableWidgetItem, QAbstractItemView, \
-    QInputDialog, QItemDelegate
+    QInputDialog, QItemDelegate, QHeaderView
 from PySide6.QtCore import QFile
 
 class StockWindow(QMainWindow):
@@ -20,27 +20,18 @@ class StockWindow(QMainWindow):
         self.setCentralWidget(self.ui)
         ui_file.close()
 
-        # Hide the buttons
-        self.ui.add_button.hide()
-        self.ui.remove_button.hide()
-
-        #************************
         foods = []
         adetler = []
 
-        with open("../database/stoklar.txt", "r") as file:
+        with open("database/stoklar.txt", "r") as file:
             for lines in file:
-                foods.append(lines.split(" ")[0])
-                adetler.append(lines.split(" ")[1])
-
-        #***************************
+                line = lines.split(" ")
+                foods.append(line[0])
+                adetler.append(line[1])
 
         # Set the table properties
+        self.ui.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.ui.table.setSelectionMode(QAbstractItemView.ExtendedSelection)
-
-        # Set the column width (WIP)
-        self.ui.table.setColumnWidth(0, 200)
-        self.ui.table.setColumnWidth(1, 200)
 
         # Set the table headers
         self.ui.table.setRowCount(len(foods))
@@ -50,7 +41,7 @@ class StockWindow(QMainWindow):
         # Set the table items
         for i in range(len(foods)):
             self.ui.table.setItem(i, 0, QTableWidgetItem(foods[i]))
-            self.ui.table.setItem(i, 1, QTableWidgetItem(adetler[i]))
+            self.ui.table.setItem(i, 1, QTableWidgetItem(adetler[i][:-1]))# sayıların sonundaki \n karakterini siler
 
         # Set button actions
         self.ui.add_button.clicked.connect(self.add_item)
@@ -69,7 +60,7 @@ class StockWindow(QMainWindow):
 
         gider = 0
 
-        with open("../database/stoklar.txt", "w") as stoklar_file:
+        with open("database/stoklar.txt", "w") as stoklar_file:
             for i in range(self.ui.table.rowCount()):
                 urun = self.ui.table.item(i, 0).text().rstrip()
                 adet = self.ui.table.item(i, 1).text().rstrip()
@@ -77,7 +68,7 @@ class StockWindow(QMainWindow):
 
                 stoklar_file.write(f"{urun} {adet}\n")
 
-        with open("../database/gider.txt", "a") as giderler_file:
+        with open("database/gider.txt", "a") as giderler_file:
             giderler_file.write(str(datetime.now().year) + " " + str(datetime.now().month) + " " + str(gider) + "\n")
 
 

@@ -1,10 +1,10 @@
 import sys
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidget, QVBoxLayout, QWidget, QTableWidgetItem, \
-    QPushButton, QMessageBox, QAbstractItemView, QInputDialog
+    QPushButton, QMessageBox, QAbstractItemView, QInputDialog, QHeaderView
 
-# !! Bunun diğerinden farkı sadece bir hesabınkini değil bütün yorumları görecek olması
-class HistoryWindow(QMainWindow):
+
+class CommentsWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
@@ -14,17 +14,19 @@ class HistoryWindow(QMainWindow):
         self.table.setColumnCount(3)  # Tarih, Ürünler, Yorum Butonu
         self.table.setHorizontalHeaderLabels(["Tarih", "Ürünler", "Yorum"])
 
+        self.table.horizontalHeader().setSortIndicatorShown(True)
+        self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table.cellDoubleClicked.connect(self.cell_double_click_event)
 
         self.load_orders()  # Sipariş verilerini yükler
 
         # Back Button
-        back_button = QPushButton("Geri dön")
+        self.back_button = QPushButton("Geri dön")
 
         layout = QVBoxLayout()
         layout.addWidget(self.table)
-        layout.addWidget(back_button)
+        layout.addWidget(self.back_button)
         central_widget = QWidget()
         central_widget.setLayout(layout)
 
@@ -38,7 +40,7 @@ class HistoryWindow(QMainWindow):
 
         orders = []
 
-        with open("../database/siparisler.txt", "r", encoding='utf-8') as file:
+        with open("database/siparisler.txt", "r", encoding='utf-8') as file:
 
             for satir in file:
                 bilgiler = satir.strip().split(",")
@@ -50,13 +52,6 @@ class HistoryWindow(QMainWindow):
             self.table.setItem(i, 0, QTableWidgetItem(order["date"]))
             self.table.setItem(i, 1, QTableWidgetItem(order["items"]))
             self.table.setItem(i, 2, QTableWidgetItem(order["yorum"]))
-
-            """
-            # Add Comment Button
-            btn_comment = QPushButton('Yorum Yap')
-            btn_comment.clicked.connect(lambda ch=True, row=i: self.make_comment(row))
-            self.table.setCellWidget(i, 2, btn_comment)
-            """
 
     # (WIP)
     def make_comment(self, row):
@@ -70,6 +65,6 @@ class HistoryWindow(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = HistoryWindow()
+    window = CommentsWindow()
     window.show()
     sys.exit(app.exec())
