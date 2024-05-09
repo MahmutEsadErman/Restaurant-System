@@ -5,9 +5,10 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget, QMessag
 from General.LoginWindow import LoginWindow
 from General.RegisterWindow import RegisterWindow
 from Customer.MainMenu import MainMenu
-from Customer.OrderWindow import OrderWindow
+from Customer.OrderWindow import OrderWindow, OrderMenu
 from Customer.ReservationWindow import ReservationWindow
-from Customer.HistoryWindow import HistoryWindow
+from Customer.HistoryWindow import HistoryWindow, OrderHistoryWindow
+
 
 
 class MainWindow(QMainWindow):
@@ -23,17 +24,16 @@ class MainWindow(QMainWindow):
         self.screenSize = QApplication.primaryScreen().size()
         self.resize(800, 640)
 
-        # Move Window to Center
-        self.move(self.screenSize.width() / 2, self.screenSize.height() / 2)
-
         # Setting Pages
         self.stackedWidget = QStackedWidget()
         self.loginWindow = LoginWindow()
         self.mainmenu = MainMenu()
         self.registerWindow = RegisterWindow()
         self.orderWindow = OrderWindow()
+        self.orderMenu = OrderMenu()
         self.reservationWindow = ReservationWindow()
         self.historyWindow = HistoryWindow()
+        self.orderHistoryWindow = OrderHistoryWindow()
 
         self.stackedWidget.addWidget(self.loginWindow)
         self.stackedWidget.addWidget(self.registerWindow)
@@ -41,6 +41,8 @@ class MainWindow(QMainWindow):
         self.stackedWidget.addWidget(self.orderWindow)
         self.stackedWidget.addWidget(self.reservationWindow)
         self.stackedWidget.addWidget(self.historyWindow)
+        self.stackedWidget.addWidget(self.orderMenu)
+        self.stackedWidget.addWidget(self.orderHistoryWindow)
         self.stackedWidget.setCurrentWidget(self.loginWindow)
 
         # Add Stacked Widget to the layout
@@ -55,16 +57,19 @@ class MainWindow(QMainWindow):
         self.registerWindow.ui.login_button.clicked.connect(lambda: self.gotoPage(self.loginWindow))
         # MainMenu Window
         self.mainmenu.ui.button1.clicked.connect(lambda: self.gotoPage(self.reservationWindow))
-        self.mainmenu.ui.button2.clicked.connect(lambda: self.gotoPage(self.orderWindow))
+        self.mainmenu.ui.button2.clicked.connect(lambda: self.gotoPage(self.orderMenu))
         self.mainmenu.ui.button3.clicked.connect(lambda: self.gotoPage(self.historyWindow))
         self.mainmenu.ui.button4.clicked.connect(lambda: self.gotoPage(self.loginWindow))
         # Order Window
-        self.orderWindow.ui.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
+        self.orderWindow.ui.back_button.clicked.connect(lambda: self.gotoPage(self.orderMenu))
+        self.orderMenu.ui.button1.clicked.connect(lambda: self.gotoPage(self.orderWindow))
+        self.orderMenu.ui.button2.clicked.connect(lambda: self.gotoPage(self.orderHistoryWindow))
+        self.orderMenu.ui.button4.clicked.connect(lambda: self.gotoPage(self.mainmenu))
         # Reservation Window
         self.reservationWindow.ui.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
         # History Window
         self.historyWindow.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
-        self.orderWindow.ui.order_button.clicked.connect(self.orderWindow.siparisVer)
+        self.orderHistoryWindow.back_button.clicked.connect(lambda: self.gotoPage(self.orderMenu))
 
     def register(self):
         if self.registerWindow.uyeOl():
@@ -82,6 +87,12 @@ class MainWindow(QMainWindow):
             self.historyWindow.update_k_adi(k_adi)
         else:
             QMessageBox.warning(self, "Hata", "Kullanıcı adı veya şifre yanlış!")
+
+    def reservation(self):
+        if self.reservationWindow.end_reservation():
+            self.gotoPage(self.orderWindow)
+        else:
+            self.gotoPage(self.mainmenu)
 
     def gotoPage(self, window):
         self.stackedWidget.setCurrentWidget(window)

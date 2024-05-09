@@ -2,23 +2,26 @@ import sys
 
 from PySide6.QtGui import QColor
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QTableWidget, QTableWidgetItem, QAbstractItemView, \
-    QInputDialog
-from PySide6.QtCore import QFile
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout
+
+import Raporlar
+from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg
+from matplotlib.figure import Figure
+
 
 # (WORK IN PROGRESS)
 class ReportWindow(QMainWindow):
     def __init__(self):
         super().__init__()
-        # Load the ui file
-        if __name__ == "__main__":
-            ui_file_name = "../uifolder/ProductManagement.ui"
-        else:
-            ui_file_name = "uifolder/ProductManagement.ui"
-        ui_file = QFile(ui_file_name)
-        self.ui = QUiLoader().load(ui_file)
-        self.setCentralWidget(self.ui)
-        ui_file.close()
+
+        self.yillik_gelir_figure = Figure()
+        Raporlar.yillik_gelir(self.yillik_gelir_figure, 2024)
+        self.canvas = FigureCanvasQTAgg(self.yillik_gelir_figure)
+
+        self.layout = QVBoxLayout()
+        self.layout.addWidget(self.canvas)
+
+        self.canvas.draw()
 
 
 if __name__ == "__main__":

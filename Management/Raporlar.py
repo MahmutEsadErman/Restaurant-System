@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def yillik_gelir(year):
+def yillik_gelir(figure, year):
     data = pd.read_csv("../database/gelir.txt", sep=' ', header=None, names=['Year', 'Month', 'Price'])
 
     data = data[data['Year'] == year]
@@ -11,14 +11,16 @@ def yillik_gelir(year):
 
     aggregated_data = data.groupby('Date')['Price'].sum().reset_index()
 
-    plt.plot(aggregated_data['Date'], aggregated_data['Price'], marker='o')
-    plt.xlabel('Tarih')
-    plt.ylabel('Gelir')
-    plt.title(f'{year} Yılının Gelir Tablosu')
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    plt.grid(True)
-    plt.show()
+    ax = figure.add_subplot()
+
+    ax.plot(aggregated_data['Date'], aggregated_data['Price'], marker='o')
+    ax.xlabel('Tarih')
+    ax.ylabel('Gelir')
+    ax.title(f'{year} Yılının Gelir Tablosu')
+    ax.xticks(rotation=45)
+    ax.tight_layout()
+    ax.grid(True)
+
 
 
 def yillik_gider(year):
@@ -110,5 +112,4 @@ def aylik_gider(year, month):
     plt.grid(True)
     plt.show()
 
-#yillik_gelir_gider(2024)
-aylik_gider(2024, 5)
+

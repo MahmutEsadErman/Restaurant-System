@@ -1,7 +1,7 @@
 import sys
 
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import QApplication, QMainWindow
+from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
 from PySide6.QtCore import Qt, QFile
 
 
@@ -17,6 +17,18 @@ class ReservationWindow(QMainWindow):
         self.ui = QUiLoader().load(ui_file)
         ui_file.close()
         self.setCentralWidget(self.ui)
+
+
+    def end_reservation(self):
+        #!!Khalili
+        # Rezervasyon fonksiyonu
+
+
+        ans = QMessageBox.question("Randevu", "Siparişinizi şimdi vermek ister misiniz?")
+        if ans == QMessageBox.Yes:
+            return True
+        else:
+            return False
 
 
 if __name__ == "__main__":
