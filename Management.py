@@ -57,7 +57,7 @@ class MainWindow(QMainWindow):
         #  Comments Window
         self.commentswindow.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
         #  Report Window
-        self.reportwindow.ui.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
+        self.reportwindow.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
 
     def gotoPage(self, window):
         self.stackedWidget.setCurrentWidget(window)

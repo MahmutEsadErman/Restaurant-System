@@ -7,12 +7,14 @@ mhy58,2024-05-08,20:30,kiraz-muz-muz,100,selamlar
 mhy58,2024-05-08,20:31,elma-elma-elma-muz,40,çooook begenmedim
 e,2024-05-08,22:50,kiraz,80,x
 e,2024-05-09,00:22,elma,10,mükemmel
-e,2024-05-09,00:24,kiraz-muz,90,x
-e,2024-05-09,00:36,kiraz,80,x
+e,2024-05-09,00:24,kiraz-muz,90,çok güzeldi yemek
+e,2024-05-09,00:36,kiraz,80,hoş bir yemek
 a,2024-05-09,10:21,kiraz-muz,90,x
 a,2024-05-09,10:21,kiraz-muz,90,x
 a,2024-05-09,10:21,kiraz-muz,90,x
-e,2024-05-09,11:19,kiraz-kiraz,160,x
+e,2024-05-09,11:19,kiraz-kiraz,160,merhaba
 mhy58,2024-05-09,11:36,elma-elma-elma-muz-muz,50,x
 e,2024-05-09,12:10,elma-elma,20,x
 a,2024-05-09,15:30,,0,x
+e,2024-05-09,17:48,muz,10,x
+e,2024-05-09,22:46,kiraz-kiraz-kiraz-ayva-ayva,335,x

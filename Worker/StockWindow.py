@@ -23,7 +23,7 @@ class StockWindow(QMainWindow):
         foods = []
         adetler = []
 
-        with open("database/stoklar.txt", "r") as file:
+        with open("database/stoklar.txt", "r", encoding='utf-8') as file:
             for lines in file:
                 line = lines.split(" ")
                 foods.append(line[0])
@@ -59,17 +59,31 @@ class StockWindow(QMainWindow):
         # Khalili
 
         gider = 0
+        urunler = []
 
-        with open("database/stoklar.txt", "w") as stoklar_file:
-            for i in range(self.ui.table.rowCount()):
-                urun = self.ui.table.item(i, 0).text().rstrip()
-                adet = self.ui.table.item(i, 1).text().rstrip()
-                gider += int(self.ui.table.item(i, 2).text().rstrip())
+        with open("database/urun_fiyat.txt", "r", encoding='utf-8') as fiyatlar_file:
+            for lines in fiyatlar_file:
+                line = lines.split(" ")
+                urunler.append(line[0])
 
-                stoklar_file.write(f"{urun} {adet}\n")
+        with open("database/urun_fiyat.txt", "a", encoding='utf-8') as fiyatlar_file:
 
-        with open("database/gider.txt", "a") as giderler_file:
-            giderler_file.write(str(datetime.now().year) + " " + str(datetime.now().month) + " " + str(gider) + "\n")
+            with open("database/stoklar.txt", "w", encoding='utf-8') as stoklar_file:
+                for i in range(self.ui.table.rowCount()):
+                    urun = self.ui.table.item(i, 0).text().rstrip()
+
+                    if urun not in urunler:
+                        fiyatlar_file.write(f"{urun} 0\n")
+
+                    adet = self.ui.table.item(i, 1).text().rstrip()
+
+                    if self.ui.table.item(i, 2) is not None:
+                        gider += int(self.ui.table.item(i, 2).text().rstrip())
+
+                    stoklar_file.write(f"{urun} {adet}\n")
+
+            with open("database/gider.txt", "a", encoding='utf-8') as giderler_file:
+                giderler_file.write(str(datetime.now().year) + " " + str(datetime.now().month) + " " + str(gider) + "\n")
 
 
 if __name__ == "__main__":
