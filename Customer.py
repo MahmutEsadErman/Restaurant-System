@@ -71,7 +71,7 @@ class MainWindow(QMainWindow):
             self.gotoPage(self.loginWindow)
 
     def login(self):
-        success, k_adi = self.loginWindow.girisYap()
+        success, k_adi = self.loginWindow.girisYap("customer")
         if success:
             self.k_adi = k_adi
             self.gotoPage(self.mainmenu)

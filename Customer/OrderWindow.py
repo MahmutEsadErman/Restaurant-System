@@ -4,7 +4,7 @@ from datetime import datetime
 from PySide6.QtGui import QColor
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QTableWidget, QTableWidgetItem, QAbstractItemView, \
-    QInputDialog
+    QInputDialog, QHeaderView
 from PySide6.QtCore import QFile
 
 
@@ -40,7 +40,7 @@ class OrderWindow(QMainWindow):
                 self.stoklar.append(int(bilgiler[1]))
 
         # Set the table properties
-        self.ui.table.setSelectionMode(QAbstractItemView.ExtendedSelection)
+        self.ui.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.ui.table.setSelectionBehavior(QAbstractItemView.SelectRows)
         self.ui.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
 

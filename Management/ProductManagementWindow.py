@@ -1,10 +1,9 @@
 import sys
 
-from PySide6.QtGui import QColor
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QTableWidget, QTableWidgetItem, QAbstractItemView, \
-    QInputDialog
+from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QTableWidget, QTableWidgetItem, QHeaderView
 from PySide6.QtCore import QFile
+
 
 class ProductManagementWindow(QMainWindow):
     def __init__(self):
@@ -24,24 +23,18 @@ class ProductManagementWindow(QMainWindow):
         fiyatlar = []
         adetler = []
 
-        with open("../database/urun_fiyat.txt", "r", encoding='utf-8') as file:
+        with open("database/urun_fiyat.txt", "r", encoding='utf-8') as file:
             for lines in file:
                 bilgiler = lines.split(" ")
                 foods.append(bilgiler[0])
-                fiyatlar.append(bilgiler[1])
+                fiyatlar.append(bilgiler[1].rstrip())
 
-        with open("../database/stoklar.txt", "r", encoding='utf-8') as file:
+        with open("database/stoklar.txt", "r", encoding='utf-8') as file:
             for lines in file:
-                adetler.append(lines.split(" ")[1])
-
-        #***************************
+                adetler.append(lines.split(" ")[1].rstrip())
 
         # Set the table properties
-        self.ui.table.setSelectionMode(QAbstractItemView.ExtendedSelection)
-
-        # Set the column width (WIP)
-        self.ui.table.setColumnWidth(0, 200)
-        self.ui.table.setColumnWidth(1, 200)
+        self.ui.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
 
         # Set the table headers
         self.ui.table.setRowCount(len(foods))
@@ -68,9 +61,8 @@ class ProductManagementWindow(QMainWindow):
     # (WIP)
     def save_items(self):
         # Khalili
-
-        with open("../database/stoklar.txt", "w", encoding='utf-8') as stoklar_file:
-            with open("../database/urun_fiyat.txt", "w", encoding='utf-8') as fiyatlar_file:
+        with open("database/stoklar.txt", "w", encoding='utf-8') as stoklar_file:
+            with open("database/urun_fiyat.txt", "w", encoding='utf-8') as fiyatlar_file:
                 for i in range(self.ui.table.rowCount()):
                     urun = self.ui.table.item(i, 0).text().rstrip()
                     fiyat = self.ui.table.item(i, 1).text().rstrip()

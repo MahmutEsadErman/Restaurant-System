@@ -18,6 +18,7 @@ class HistoryWindow(QMainWindow):
         self.table.setColumnCount(4)  # Tarih, Ürünler, Yorum Butonu
         self.table.setHorizontalHeaderLabels(["Tarih", "Ürünler", "Yorum", "Sipariş Durumu"])
 
+        self.table.horizontalHeader().setStretchLastSection(True)
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
         self.table.cellDoubleClicked.connect(self.cell_double_click_event)
 
@@ -43,11 +44,11 @@ class HistoryWindow(QMainWindow):
         #*********************
         orders = []
         kullanici_orders = []
-        print(self.k_adi)
         with open("database/siparisler.txt", "r", encoding='utf-8') as file:
 
             for satir in file:
                 bilgiler = satir.strip().split(",")
+                map(str.rstrip, bilgiler)
                 #!!!!!!!!!!!!!!!!!!!!!!!!
                 orders.append({"k_adi": bilgiler[0], "date": bilgiler[1], "time": bilgiler[2], "items": bilgiler[3],
                                "fiyat": bilgiler[4], "yorum": bilgiler[5], "siparis": bilgiler[6]})
@@ -110,7 +111,6 @@ class HistoryWindow(QMainWindow):
 
     def update_k_adi(self, k_adi):
         self.k_adi = k_adi
-
         self.load_orders()
 
 

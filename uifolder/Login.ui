@@ -161,6 +161,9 @@ QPushButton#minimize_button{
        </item>
        <item>
         <widget class="QLineEdit" name="lineEdit_2">
+         <property name="echoMode">
+          <enum>QLineEdit::Password</enum>
+         </property>
          <property name="placeholderText">
           <string>Password</string>
          </property>
@@ -226,7 +229,6 @@ QPushButton#minimize_button{
            <widget class="QPushButton" name="register_button">
             <property name="font">
              <font>
-              <pointsize>-1</pointsize>
               <italic>true</italic>
              </font>
             </property>
