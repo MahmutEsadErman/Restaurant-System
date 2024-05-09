@@ -2,7 +2,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 
 
-def yillik_gelir(figure, year):
+def yillik_gelir(year):
     data = pd.read_csv("../database/gelir.txt", sep=' ', header=None, names=['Year', 'Month', 'Price'])
 
     data = data[data['Year'] == year]
@@ -11,16 +11,18 @@ def yillik_gelir(figure, year):
 
     aggregated_data = data.groupby('Date')['Price'].sum().reset_index()
 
-    ax = figure.add_subplot()
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
 
     ax.plot(aggregated_data['Date'], aggregated_data['Price'], marker='o')
-    ax.xlabel('Tarih')
-    ax.ylabel('Gelir')
-    ax.title(f'{year} Yılının Gelir Tablosu')
-    ax.xticks(rotation=45)
-    ax.tight_layout()
+    ax.set_xlabel('Tarih')
+    ax.set_ylabel('Gelir')
+    ax.set_title(f'{year} Yılının Gelir Tablosu')
+    for label in ax.get_xticklabels():
+        label.set_rotation(45)
     ax.grid(True)
 
+    return fig
 
 
 def yillik_gider(year):
@@ -32,14 +34,18 @@ def yillik_gider(year):
 
     aggregated_data = data.groupby('Date')['Price'].sum().reset_index()
 
-    plt.plot(aggregated_data['Date'], aggregated_data['Price'], marker='o')
-    plt.xlabel('Tarih')
-    plt.ylabel('Gider')
-    plt.title(f'{year} Yılının Gider Tablosu')
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    plt.grid(True)
-    plt.show()
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+
+    ax.plot(aggregated_data['Date'], aggregated_data['Price'], marker='o')
+    ax.set_xlabel('Tarih')
+    ax.set_ylabel('Gider')
+    ax.set_title(f'{year} Yılının Gider Tablosu')
+    for label in ax.get_xticklabels():
+        label.set_rotation(45)
+    ax.grid(True)
+
+    return fig
 
 
 def yillik_gelir_gider(year):
@@ -58,15 +64,19 @@ def yillik_gelir_gider(year):
 
     merged_data = merged_data[merged_data['Year'] == year]
 
-    plt.plot(merged_data['Date'], merged_data['Difference'], marker='o', color="red")
-    plt.xlabel('Tarih')
-    plt.ylabel('Gelir - Gider')
-    plt.title(f'{year} Yılı Gelir Gider Tablosu')
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    plt.grid(True)
-    plt.show()
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
 
+    ax.plot(merged_data['Date'], merged_data['Difference'], marker='o', color="red")
+    ax.set_xlabel('Tarih')
+    ax.set_ylabel('Gelir - Gider')
+    ax.set_title(f'{year} Yılı Gelir Gider Tablosu')
+    for label in ax.get_xticklabels():
+        label.set_rotation(45)
+
+    ax.grid(True)
+
+    return fig
 
 def aylik_gelir(year, month):
     # Read income data
@@ -80,15 +90,18 @@ def aylik_gelir(year, month):
         print(f"No data found for year {year} and month {month}.")
         return
 
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
+
     # Plot the income data
-    plt.plot(range(1, len(income_data_month) + 1), income_data_month['Income'], marker='o')
-    plt.xlabel('Data Point')
-    plt.ylabel('Income')
-    plt.title(f'Income for Year {year} and Month {month}')
-    plt.xticks(range(1, len(income_data_month) + 1))
-    plt.tight_layout()
-    plt.grid(True)
-    plt.show()
+    ax.plot(range(1, len(income_data_month) + 1), income_data_month['Income'], marker='o')
+    ax.set_xlabel('Data Point')
+    ax.set_ylabel('Income')
+    ax.set_title(f'Income for Year {year} and Month {month}')
+    ax.grid(True)
+
+    return fig
+
 
 def aylik_gider(year, month):
     # Read outcome data
@@ -103,13 +116,14 @@ def aylik_gider(year, month):
         return
 
     # Plot the outcome data
-    plt.plot(range(1, len(outcome_data_month) + 1), outcome_data_month['Outcome'], marker='o', color='red')
-    plt.xlabel('Data Point')
-    plt.ylabel('Outcome')
-    plt.title(f'Outcome for Year {year} and Month {month}')
-    plt.xticks(range(1, len(outcome_data_month) + 1))
-    plt.tight_layout()
-    plt.grid(True)
-    plt.show()
+    fig = plt.figure()
+    ax = fig.add_subplot(111)
 
+    # Plot the income data
+    ax.plot(range(1, len(outcome_data_month) + 1), outcome_data_month['Outcome'], marker='o')
+    ax.set_xlabel('Data Point')
+    ax.set_ylabel('Outcome')
+    ax.set_title(f'Outcome for Year {year} and Month {month}')
+    ax.grid(True)
 
+    return fig
