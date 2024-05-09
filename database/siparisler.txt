@@ -1,14 +1,17 @@
-mhy58,2023-04-20,21:10,muz-muz-armut,140,yemek güzeldi,hfffff
-e,2023-04-20,21:40,muz-elma-armut,160,Eh işte,hfffff
-e,2023-06-10,22:00,muz-elma-armut,115,iyidir,hfffff
-mhy58,2023-05-8,22:00,elma-kiraz-armut,115,x,hfffff
-e,2023-04-20,22:00,elma-elma,115,cok kötüydü,hfffff
-mhy58,2024-05-08,20:30,kiraz-muz-muz,100,selamlar,hfffff
-mhy58,2024-05-08,20:31,elma-elma-elma-muz,40,çooook begenmedim,hfffff
-e,2024-05-08,22:50,kiraz,80,x,qwerty
-e,2024-05-09,00:22,elma,10,x,qwerty
-e,2024-05-09,00:24,kiraz-muz,90,x,qwerty
-e,2024-05-09,00:36,kiraz,80,x,qwerty
-a,2024-05-09,10:21,kiraz-muz,90,x,qwerty
-a,2024-05-09,10:21,kiraz-muz,90,x,qwerty
-a,2024-05-09,10:21,kiraz-muz,90,x,qwerty
+mhy58,2023-04-20,21:10,muz-muz-armut,140,yemek güzeldi
+e,2023-04-20,21:40,muz-elma-armut,160,Eh işte
+e,2023-06-10,22:00,muz-elma-armut,115,iyidir
+mhy58,2023-05-8,22:00,elma-kiraz-armut,115,x
+e,2023-04-20,22:00,elma-elma,115,cok kötüydü
+mhy58,2024-05-08,20:30,kiraz-muz-muz,100,selamlar
+mhy58,2024-05-08,20:31,elma-elma-elma-muz,40,çooook begenmedim
+e,2024-05-08,22:50,kiraz,80,x
+e,2024-05-09,00:22,elma,10,mükemmel
+e,2024-05-09,00:24,kiraz-muz,90,x
+e,2024-05-09,00:36,kiraz,80,x
+a,2024-05-09,10:21,kiraz-muz,90,x
+a,2024-05-09,10:21,kiraz-muz,90,x
+a,2024-05-09,10:21,kiraz-muz,90,x
+e,2024-05-09,11:19,kiraz-kiraz,160,x
+mhy58,2024-05-09,11:36,elma-elma-elma-muz-muz,50,x
+e,2024-05-09,12:10,elma-elma,20,x
