@@ -15,8 +15,8 @@ class HistoryWindow(QMainWindow):
         self.setWindowTitle("Geçmiş Siparişler")
 
         self.table = QTableWidget()
-        self.table.setColumnCount(4)  # Tarih, Ürünler, Yorum Butonu
-        self.table.setHorizontalHeaderLabels(["Tarih", "Ürünler", "Yorum", "Sipariş Durumu"])
+        self.table.setColumnCount(3)  # Tarih, Ürünler, Yorum Butonu
+        self.table.setHorizontalHeaderLabels(["Tarih", "Ürünler", "Yorum"])
 
         self.table.horizontalHeader().setStretchLastSection(True)
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -51,11 +51,10 @@ class HistoryWindow(QMainWindow):
                 map(str.rstrip, bilgiler)
                 #!!!!!!!!!!!!!!!!!!!!!!!!
                 orders.append({"k_adi": bilgiler[0], "date": bilgiler[1], "time": bilgiler[2], "items": bilgiler[3],
-                               "fiyat": bilgiler[4], "yorum": bilgiler[5], "siparis": bilgiler[6]})
+                               "fiyat": bilgiler[4], "yorum": bilgiler[5]})
                 if bilgiler[0] == self.k_adi:
                     kullanici_orders.append({"k_adi": bilgiler[0], "date": bilgiler[1], "time": bilgiler[2],
-                                     "items": bilgiler[3], "fiyat": bilgiler[4], "yorum": bilgiler[5],
-                                     "siparis": bilgiler[6]})
+                                     "items": bilgiler[3], "fiyat": bilgiler[4], "yorum": bilgiler[5]})
 
         self.table.setRowCount(len(kullanici_orders))
         for i, order in enumerate(kullanici_orders):
@@ -71,14 +70,6 @@ class HistoryWindow(QMainWindow):
             else:
                 self.table.setItem(i, 2, QTableWidgetItem(order["yorum"]))
 
-            #!!!!!!!!!!!!!!!!!!!!!!!!
-            if order["siparis"] == "x":
-                # Add Comment Button
-                btn_comment = QPushButton('Siparis Yap')
-                btn_comment.clicked.connect(lambda ch=True, row=i: self.give_order(row, orders))
-                self.table.setCellWidget(i, 3, btn_comment)
-            else:
-                self.table.setItem(i, 3, QTableWidgetItem("Sipariş Yapıldı"))
 
     # (WIP) Khalili
     def make_comment(self, row, orders, kullanici_orders):
@@ -97,7 +88,7 @@ class HistoryWindow(QMainWindow):
         with open("database/siparisler.txt", "w", encoding='utf-8') as file:
             for j in range(len(orders)):
                 file.write(orders[j]["k_adi"] + "," + orders[j]["date"] + "," + orders[j]["time"] + "," + orders[j][
-                    "items"] + "," + orders[j]["fiyat"] + "," + orders[j]["yorum"] + ",hfffff\n")
+                    "items"] + "," + orders[j]["fiyat"] + "," + orders[j]["yorum"] + "\n")
 
     # (WIP) Khalili, Esadi
     # Buraya benim bakmam da gerekebilir Sen Bana haber verirsin Halil abi
