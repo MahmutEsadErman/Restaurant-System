@@ -3,8 +3,8 @@ from datetime import datetime
 
 from PySide6.QtGui import QColor
 from PySide6.QtUiTools import QUiLoader
-from PySide6.QtWidgets import QApplication, QMainWindow, QVBoxLayout, QTableWidget, QTableWidgetItem, QAbstractItemView, \
-    QInputDialog, QHeaderView, QPushButton, QWidget, QMessageBox
+from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QAbstractItemView, \
+    QInputDialog, QHeaderView
 from PySide6.QtCore import QFile
 
 
@@ -99,7 +99,7 @@ class OrderWindow(QMainWindow):
         self.total_price = total_price
 
     def siparisVer(self):
-
+        print("ordertype: ", self.order_type)
         for i, food in enumerate(self.foods):
             for order in self.orders:
                 if food == order[0]:
@@ -121,7 +121,7 @@ class OrderWindow(QMainWindow):
                 siparisler + "," + str(self.total_price) + ",x\n")
 
         # Anında Sipariş Verme
-        if (self.order_type == 0):
+        if self.order_type == 0:
             print("Anında Sipariş Verdik")
             with open("database/aktif_siparisler.txt", "a", encoding='utf-8') as dosya:
 
@@ -131,7 +131,7 @@ class OrderWindow(QMainWindow):
                             siparisler + "," + str(self.total_price) + "\n")
 
         # Sonradan Sipariş Verme
-        if (self.order_type == 1):
+        if self.order_type == 1:
             print("Sonradan Sipariş Verdik") #KHALİLİ
 
         with open("database/gelir.txt", "a", encoding='utf-8') as dosya:

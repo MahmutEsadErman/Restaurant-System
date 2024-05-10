@@ -33,7 +33,7 @@ class MainWindow(QMainWindow):
         self.orderMenu = OrderMenu()
         self.reservationWindow = ReservationWindow()
         self.historyWindow = HistoryWindow()
-        self.orderHistoryWindow = OrderHistoryWindow()
+        self.orderHistoryWindow = OrderHistoryWindow(lambda: self.gotoPage(self.orderWindow))
         self.paymentWindow = PaymentWindow()
 
         self.stackedWidget.addWidget(self.loginWindow)
@@ -63,9 +63,10 @@ class MainWindow(QMainWindow):
         self.mainmenu.ui.button3.clicked.connect(lambda: self.gotoPage(self.historyWindow))
         self.mainmenu.ui.button4.clicked.connect(lambda: self.gotoPage(self.loginWindow))
         # Order Window
+
         self.orderWindow.ui.back_button.clicked.connect(lambda: self.gotoPage(self.orderMenu))
-        self.orderMenu.ui.button1.clicked.connect(lambda: self.gotoPage(self.orderWindow))
-        self.orderMenu.ui.button2.clicked.connect(lambda: self.gotoPage(self.orderHistoryWindow))
+        self.orderMenu.ui.button1.clicked.connect(self.instant_order)
+        self.orderMenu.ui.button2.clicked.connect(self.order_from_reservation)
         self.orderMenu.ui.button4.clicked.connect(lambda: self.gotoPage(self.mainmenu))
         self.orderWindow.ui.order_button.clicked.connect(lambda: self.gotoPage(self.paymentWindow))
         # Reservation Window
@@ -75,7 +76,8 @@ class MainWindow(QMainWindow):
         self.historyWindow.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
         self.orderHistoryWindow.back_button.clicked.connect(lambda: self.gotoPage(self.orderMenu))
         # Payment Window
-        self.paymentWindow.ui.odeme_butonu.clicked.connect(lambda: self.give_instant_order)
+        self.paymentWindow.ui.odeme_butonu.clicked.connect(self.orderWindow.siparisVer)
+        self.paymentWindow.ui.odeme_butonu.clicked.connect(lambda: self.gotoPage(self.mainmenu))
         self.paymentWindow.ui.exit_button.clicked.connect(lambda: self.gotoPage(self.orderWindow))
 
 
@@ -109,9 +111,13 @@ class MainWindow(QMainWindow):
         else:
             self.gotoPage(self.mainmenu)
 
-    def give_instant_order(self):
+    def instant_order(self):
         self.orderWindow.order_type = 0
-        self.orderWindow.siparisVer()
+        self.gotoPage(self.orderWindow)
+
+    def order_from_reservation(self):
+        self.orderWindow.order_type = 1
+        self.gotoPage(self.orderHistoryWindow)
 
     def gotoPage(self, window):
         self.stackedWidget.setCurrentWidget(window)

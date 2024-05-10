@@ -1,7 +1,7 @@
 import sys
 from datetime import datetime
 
-from PyQt5.QtCore import QTimer
+from PySide6.QtCore import QTimer
 from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidget, QVBoxLayout, QWidget, QTableWidgetItem, \
     QPushButton, QMessageBox, QAbstractItemView, QInputDialog, QHeaderView
 
@@ -40,7 +40,6 @@ class HistoryWindow(QMainWindow):
     def cell_double_click_event(self, row, column):
         QMessageBox.information(self, "Bilgi", self.table.item(row, column).text())
 
-    #!!!!!!!!!!!!!!!!!!!!!!!! Değiştirdiğim yerlere bundan koydum zaten git ten de bakabilirsin
     def load_orders(self):
         # Örnek veriler
         #*********************
@@ -109,8 +108,11 @@ class HistoryWindow(QMainWindow):
 
 class OrderHistoryWindow(HistoryWindow):
 
-    def __init__(self):
+    def __init__(self, go_order_page):
         super().__init__()
+
+        # Function Pointer Yöntemiyle OrderWindow'a gitmek için
+        self.go_order_page = go_order_page
 
         self.timer = QTimer()
         # Connect the timeout signal of the timer to the load_orders method
@@ -134,8 +136,6 @@ class OrderHistoryWindow(HistoryWindow):
 
         # Back Button
         self.back_button = QPushButton("Geri dön")
-        self.btn_comment = QPushButton('Sipariş Yap')
-        self.btn_comment.clicked.connect(lambda: self.go_order_page)
 
         layout = QVBoxLayout()
         layout.addWidget(self.table)
@@ -173,14 +173,13 @@ class OrderHistoryWindow(HistoryWindow):
 
             if order["tarih"] == "x":
                 # Add Comment Button
-                self.table.setCellWidget(i, 2, self.btn_comment)
+                btn_comment = QPushButton('Sipariş Yap')
+                btn_comment.clicked.connect(self.go_order_page)
+                self.table.setCellWidget(i, 2, btn_comment)
             else:
                 self.table.setItem(i, 2, QTableWidgetItem("Sipariş Yapılmış"))
 
-    def go_order_page(self):
-        print("hello")
-        # OrderWindow().order_type = 1
-        # OrderWindow().siparisVer()
+    # def give_order(self):
         # if kullanici_orders[row] in orders:
         #     row_index = orders.index(kullanici_orders[row])
         #     orders[row_index]["tarih"] = str(datetime.now().date())
@@ -200,10 +199,3 @@ class OrderHistoryWindow(HistoryWindow):
     def update_k_adi(self, k_adi):
         self.k_adi = k_adi
         self.load_orders()
-
-
-if __name__ == '__main__':
-    app = QApplication(sys.argv)
-    window = OrderHistoryWindow()
-    window.show()
-    sys.exit(app.exec())
