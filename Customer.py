@@ -9,6 +9,7 @@ from Customer.MainMenu import MainMenu, OrderMenu
 from Customer.OrderWindow import OrderWindow
 from Customer.ReservationWindow import ReservationWindow
 from Customer.HistoryWindow import HistoryWindow, OrderHistoryWindow
+# from Customer.CancelWindow import CancelWindow
 
 
 class MainWindow(QMainWindow):
@@ -33,8 +34,9 @@ class MainWindow(QMainWindow):
         self.orderMenu = OrderMenu()
         self.reservationWindow = ReservationWindow()
         self.historyWindow = HistoryWindow()
-        self.orderHistoryWindow = OrderHistoryWindow(lambda: self.gotoPage(self.orderWindow))
+        self.orderHistoryWindow = OrderHistoryWindow(self.go_order_window)
         self.paymentWindow = PaymentWindow()
+        # self.cancelWindow = CancelWindow()
 
         self.stackedWidget.addWidget(self.loginWindow)
         self.stackedWidget.addWidget(self.registerWindow)
@@ -46,6 +48,7 @@ class MainWindow(QMainWindow):
         self.stackedWidget.addWidget(self.orderHistoryWindow)
         self.stackedWidget.addWidget(self.paymentWindow)
         self.stackedWidget.setCurrentWidget(self.loginWindow)
+        # self.stackedWidget.setCurrentWidget(self.cancelWindow)
 
         # Add Stacked Widget to the layout
         self.setCentralWidget(self.stackedWidget)
@@ -77,7 +80,7 @@ class MainWindow(QMainWindow):
         self.historyWindow.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
         self.orderHistoryWindow.back_button.clicked.connect(lambda: self.gotoPage(self.orderMenu))
         # Payment Window
-        self.paymentWindow.ui.odeme_butonu.clicked.connect(self.orderWindow.siparisVer)
+        self.paymentWindow.ui.odeme_butonu.clicked.connect(lambda: self.orderWindow.siparisVer)
         self.paymentWindow.ui.odeme_butonu.clicked.connect(lambda: self.gotoPage(self.mainmenu))
         self.paymentWindow.ui.exit_button.clicked.connect(lambda: self.gotoPage(self.orderWindow))
 
@@ -103,6 +106,9 @@ class MainWindow(QMainWindow):
             self.reservationWindow.k_adi = k_adi
             self.reservationWindow.update_k_adi(k_adi)
 
+            # self.cancelWindow.k_adi = k_adi
+            # self.cancelWindow.update_k_adi(k_adi)
+
         else:
             QMessageBox.warning(self, "Hata", "E-Posta veya şifre yanlış!")
 
@@ -120,6 +126,11 @@ class MainWindow(QMainWindow):
     def order_from_reservation(self):
         self.orderWindow.order_type = 1
 
+        self.gotoPage(self.orderHistoryWindow)
+
+    def go_order_window(self, order):
+        self.orderWindow.order_type = 1
+        self.orderWindow.selected_order = order
         self.gotoPage(self.orderHistoryWindow)
 
     def gotoPage(self, window):

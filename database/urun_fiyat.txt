@@ -4,3 +4,4 @@ muz 10
 ayva 40
 çilek 25
 kivi 45
+kebap 0

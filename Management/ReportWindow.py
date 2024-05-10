@@ -13,15 +13,15 @@ class ReportWindow(QMainWindow):
         self.yillik_gelir = FigureCanvasQTAgg(Raporlar.yillik_gelir(2024))
         self.yillik_gider = FigureCanvasQTAgg(Raporlar.yillik_gider(2024))
         self.yillik_gelir_gider = FigureCanvasQTAgg(Raporlar.yillik_gelir_gider(2024))
-        self.aylik_gelir = FigureCanvasQTAgg(Raporlar.aylik_gelir(2024, 5))
+        #self.aylik_gelir = FigureCanvasQTAgg(Raporlar.yemek_populerlik(2024, 5))
 
         self.yillik_gelir.setStyleSheet("background-color: red;")
 
         self.back_button = QPushButton("Geri dön")
         self.back_button.setMaximumSize(140, 50)
         self.combobox = QComboBox()
-        self.plots = [self.yillik_gelir, self.yillik_gider, self.yillik_gelir_gider, self.aylik_gelir]
-        plots_names = ["Yıllık Gelir", "Yıllık Gider", "Yıllık Gelir-Gider", "Aylık Gelir"]
+        self.plots = [self.yillik_gelir, self.yillik_gider, self.yillik_gelir_gider]
+        plots_names = ["Yıllık Gelir", "Yıllık Gider", "Yıllık Gelir-Gider", "Yemek Populerligi"]
         self.combobox.addItems(plots_names)
         self.combobox.currentIndexChanged.connect(self.change_plot)
 

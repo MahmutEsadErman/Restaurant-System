@@ -78,57 +78,33 @@ def yillik_gelir_gider(year):
 
     return fig
 
-def aylik_gelir(year, month):
-    # Read income data
-    income_data = pd.read_csv("database/gelir.txt", sep=' ', header=None, names=['Year', 'Month', 'Income'])
 
-    # Filter income data for the specified year and month
-    income_data_month = income_data[(income_data['Year'] == year) & (income_data['Month'] == month)].copy()
-
-    # If there's no data for the specified month, return early
-    if income_data_month.empty:
-        print(f"No data found for year {year} and month {month}.")
-        return
-
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
-
-    # Plot the income data
-    ax.plot(range(1, len(income_data_month) + 1), income_data_month['Income'], marker='o')
-    ax.set_xlabel('Data Point')
-    ax.set_ylabel('Income')
-    ax.set_title(f'Income for Year {year} and Month {month}')
-    ax.grid(True)
-
-    return fig
-
-
-def yemek_populerlik():
-    # Dictionary to store food counts
-    food_counts = {}
-
-    # Open the file and read each line
-    with open("../database/siparisler.txt", 'r') as file:
-        for line in file:
-            # Split the line by comma
-            parts = line.strip().split(',')
-            # Extract the food items
-            foods = parts[3].split('-')
-            # Update the counts for each food item
-            for food in foods:
-                food_counts[food] = food_counts.get(food, 0) + 1
-
-    # Plotting the food counts
-    foods = list(food_counts.keys())
-    counts = list(food_counts.values())
-
-    plt.figure(figsize=(10, 6))
-    plt.bar(foods, counts, width = 0.5)
-    plt.xlabel('Food Items')
-    plt.ylabel('Counts')
-    plt.title('Food Counts in Orders')
-    plt.xticks(rotation=45)
-    plt.tight_layout()
-    plt.show()
-
-yemek_populerlik()
+# def yemek_populerlik():
+#     # Dictionary to store food counts
+#     food_counts = {}
+#
+#     # Open the file and read each line
+#     with open("database/siparisler.txt", 'r') as file:
+#         for line in file:
+#             # Split the line by comma
+#             parts = line.strip().split(',')
+#             # Extract the food items
+#             foods = parts[3].split('-')
+#             # Update the counts for each food item
+#             for food in foods:
+#                 food_counts[food] = food_counts.get(food, 0) + 1
+#
+#     # Plotting the food counts
+#     foods = list(food_counts.keys())
+#     counts = list(food_counts.values())
+#
+#     plt.figure(figsize=(10, 6))
+#     plt.bar(foods, counts, width = 0.5)
+#     plt.xlabel('Food Items')
+#     plt.ylabel('Counts')
+#     plt.title('Food Counts in Orders')
+#     plt.xticks(rotation=45)
+#     plt.tight_layout()
+#     plt.show()
+#
+# yemek_populerlik()
