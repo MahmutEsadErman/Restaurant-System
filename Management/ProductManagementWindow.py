@@ -65,8 +65,16 @@ class ProductManagementWindow(QMainWindow):
             with open("database/urun_fiyat.txt", "w", encoding='utf-8') as fiyatlar_file:
                 for i in range(self.ui.table.rowCount()):
                     urun = self.ui.table.item(i, 0).text().rstrip()
-                    fiyat = self.ui.table.item(i, 1).text().rstrip()
-                    adet = self.ui.table.item(i, 2).text().rstrip()
+
+                    if self.ui.table.item(i, 1) is not None:
+                        fiyat = self.ui.table.item(i, 1).text().rstrip()
+                    else:
+                        fiyat = "0"
+
+                    if self.ui.table.item(i, 1) is not None:
+                        adet = self.ui.table.item(i, 2).text().rstrip()
+                    else:
+                        adet = "0"
 
                     stoklar_file.write(f"{urun} {adet}\n")
                     fiyatlar_file.write(f"{urun} {fiyat}\n")

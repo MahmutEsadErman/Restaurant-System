@@ -1,0 +1,7 @@
+kiraz 85
+elma 30
+muz 15
+ayva 40
+çilek 25
+kivi 45
+kebap 0

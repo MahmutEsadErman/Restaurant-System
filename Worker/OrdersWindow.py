@@ -1,4 +1,5 @@
 import sys
+import datetime
 
 from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidget, QVBoxLayout, QWidget, QTableWidgetItem, \
     QPushButton, QMessageBox, QAbstractItemView, QHeaderView
@@ -41,12 +42,14 @@ class OrdersWindow(QMainWindow):
 
     def load_orders(self):
         data = []
+        today = datetime.date.today().strftime("%Y-%m-%d")
+
         with open("database/aktif_siparisler.txt", "r", encoding='utf-8') as file:
 
             for satir in file:
                 bilgiler = satir.strip().split(",")
                 #map(str.rstrip, bilgiler)
-                if bilgiler[3] != "x":
+                if bilgiler[3] != "x" and bilgiler[1] == today:
                     data.append({"date": bilgiler[2], "items": bilgiler[3]})
 
         self.table.setRowCount(len(data))

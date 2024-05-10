@@ -75,7 +75,10 @@ class StockWindow(QMainWindow):
                     if urun not in urunler:
                         fiyatlar_file.write(f"{urun} 0\n")
 
-                    adet = self.ui.table.item(i, 1).text().rstrip()
+                    if self.ui.table.item(i, 1) is not None:
+                        adet = self.ui.table.item(i, 1).text().rstrip()
+                    else:
+                        adet = 0
 
                     if self.ui.table.item(i, 2) is not None:
                         gider += int(self.ui.table.item(i, 2).text().rstrip())

@@ -14,6 +14,7 @@ class OrderWindow(QMainWindow):
         # Load the ui file
         self.k_adi = None
         self.order_type = 0
+        self.selected_order = None
 
         if __name__ == "__main__":
             ui_file_name = "../uifolder/Order.ui"
@@ -27,19 +28,25 @@ class OrderWindow(QMainWindow):
         # Initialize lists
         self.reset_lists()
 
+        self.stoklar = []
+        self.foods = []
+
         # Set up the window
         self.setup_window()
 
     def reset_lists(self):
-        self.foods = []
+        #self.foods = []
         self.fiyatlar = []
-        self.stoklar = []
+        #self.stoklar = []
         self.orders = []
         self.total_price = 0
 
         for i in range(self.ui.table.rowCount()):
             item = self.ui.table.item(i, 2)
             if item:
+                self.ui.table.item(i, 0).setBackground(QColor(255, 255, 255))
+                self.ui.table.item(i, 1).setBackground(QColor(255, 255, 255))
+                self.ui.table.item(i, 2).setBackground(QColor(255, 255, 255))
                 item.setText("")
 
     def setup_window(self):
@@ -89,6 +96,10 @@ class OrderWindow(QMainWindow):
             self.ui.table.item(row, 2).setText("")  # Clear quantity column
             del self.row_colors_toggled[row]  # Remove the row from the dictionary
 
+            for order in self.orders:
+                if order[0] == self.ui.table.item(row, 0).text():
+                    self.orders.remove(order)
+
         else:
             # Ask the user for the quantity
             quantity, ok = QInputDialog.getInt(self, "Ürün Adedi", "Ürünün Adedini Giriniz: ", 1, 1, 100, 1)
@@ -113,7 +124,7 @@ class OrderWindow(QMainWindow):
         self.ui.total_price_label.setText("Toplam Fiyat: " + str(total_price) + " TL")
         self.total_price = total_price
 
-    def siparisVer(self):
+    def siparisVer(self, order):
         print("ordertype: ", self.order_type)
 
         for i, food in enumerate(self.foods):
@@ -125,6 +136,7 @@ class OrderWindow(QMainWindow):
                         self.stoklar[i] -= order[2]
 
         with open("database/stoklar.txt", "w", encoding='utf-8') as dosya:
+            print(len(self.stoklar))
             for i in range(len(self.stoklar)):
                 dosya.write(self.foods[i] + " " + str(self.stoklar[i]) + "\n")
 
@@ -136,11 +148,31 @@ class OrderWindow(QMainWindow):
             with open("database/aktif_siparisler.txt", "a", encoding='utf-8') as dosya:
 
                 dosya.write(self.k_adi + "," + str(datetime.now().date()) + "," + str(
-                    datetime.now().strftime("%H:%M")) + siparisler + "," + str(self.total_price) + "\n")
+                    datetime.now().strftime("%H:%M")) + "," + siparisler + "," + str(self.total_price) + "\n")
 
         # Sonradan Sipariş Verme
         if self.order_type == 1:
-            print("Sonradan Sipariş Verdik") #KHALİLİ
+            print("Sonradan Sipariş Verdik")
+
+            orders = []
+            with open("database/aktif_siparisler.txt", "r", encoding='utf-8') as file:
+
+                for satir in file:
+                    bilgiler = satir.strip().split(",")
+                    map(str.rstrip, bilgiler)
+                    # !!!!!!!!!!!!!!!!!!!!!!!!
+                    orders.append(
+                        {"k_adi": bilgiler[0], "tarih": bilgiler[1], "saat": bilgiler[2], "items": bilgiler[3],
+                         "fiyat": bilgiler[4]})
+
+                if self.selected_order == order:
+                    self.selected_order["items"] = siparisler
+                    self.selected_order["fiyat"] = str(self.total_price)
+
+            with open("database/aktif_siparisler.txt", "w", encoding='utf-8') as file:
+
+                for order in orders:
+                    file.write(order[0] + "," + order[1] + "," + order[2] + "," + order[3] + "," + order[4] + "\n")
 
         with open("database/gelir.txt", "a", encoding='utf-8') as dosya:
             dosya.write(str(datetime.now().year) + " " + str(datetime.now().month) + " " + str(self.total_price) + "\n")
