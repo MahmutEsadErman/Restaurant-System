@@ -158,20 +158,20 @@ class OrderHistoryWindow(HistoryWindow):
                 bilgiler = satir.strip().split(",")
                 map(str.rstrip, bilgiler)
                 #!!!!!!!!!!!!!!!!!!!!!!!!
-                orders.append({"k_adi": bilgiler[0], "masa": bilgiler[1], "r_tarih": bilgiler[2], "r_saat": bilgiler[3],
-                               "tarih": bilgiler[4], "saat": bilgiler[5], "items": bilgiler[6], "fiyat": bilgiler[7]})
+                orders.append({"k_adi": bilgiler[0], "tarih": bilgiler[1], "saat": bilgiler[2], "items": bilgiler[3],
+                               "fiyat": bilgiler[4]})
                 if bilgiler[0] == self.k_adi:
                     kullanici_orders.append(
-                        {"k_adi": bilgiler[0], "masa": bilgiler[1], "r_tarih": bilgiler[2], "r_saat": bilgiler[3],
-                         "tarih": bilgiler[4], "saat": bilgiler[5], "items": bilgiler[6], "fiyat": bilgiler[7]})
+                        {"k_adi": bilgiler[0], "tarih": bilgiler[1], "saat": bilgiler[2], "items": bilgiler[3],
+                         "fiyat": bilgiler[4]})
 
         self.table.setRowCount(len(kullanici_orders))
         for i, order in enumerate(kullanici_orders):
 
-            self.table.setItem(i, 0, QTableWidgetItem(order["r_tarih"]))
-            self.table.setItem(i, 1, QTableWidgetItem(order["r_saat"]))
+            self.table.setItem(i, 0, QTableWidgetItem(order["tarih"]))
+            self.table.setItem(i, 1, QTableWidgetItem(order["saat"]))
 
-            if order["tarih"] == "x":
+            if order["items"] == "x":
                 # Add Comment Button
                 btn_comment = QPushButton('Sipariş Yap')
                 btn_comment.clicked.connect(self.go_order_page)

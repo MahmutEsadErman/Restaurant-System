@@ -1,6 +1,0 @@
-kiraz 0
-elma 44
-muz 28
-ayva 19
-çilek 84
-kivi 60

@@ -68,6 +68,7 @@ class MainWindow(QMainWindow):
         self.orderMenu.ui.button1.clicked.connect(self.instant_order)
         self.orderMenu.ui.button2.clicked.connect(self.order_from_reservation)
         self.orderMenu.ui.button4.clicked.connect(lambda: self.gotoPage(self.mainmenu))
+
         self.orderWindow.ui.order_button.clicked.connect(lambda: self.gotoPage(self.paymentWindow))
         # Reservation Window
         self.reservationWindow.ui.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
@@ -113,14 +114,26 @@ class MainWindow(QMainWindow):
 
     def instant_order(self):
         self.orderWindow.order_type = 0
+
         self.gotoPage(self.orderWindow)
 
     def order_from_reservation(self):
         self.orderWindow.order_type = 1
+
         self.gotoPage(self.orderHistoryWindow)
 
     def gotoPage(self, window):
-        self.stackedWidget.setCurrentWidget(window)
+        if window == self.paymentWindow:
+            if self.orderWindow.bosMu():
+                self.stackedWidget.setCurrentWidget(window)
+
+        else:
+            if window == self.mainmenu:
+                # Reset order-related attributes in OrderWindow
+                self.orderWindow.reset_lists()
+                # Reset total price label
+                self.orderWindow.ui.total_price_label.setText("Toplam Fiyat: 0 TL")
+            self.stackedWidget.setCurrentWidget(window)
 
 
 if __name__ == "__main__":
