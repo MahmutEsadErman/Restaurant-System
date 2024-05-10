@@ -5,7 +5,7 @@ from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidget, QVBoxLayo
 from PySide6.QtCore import QTimer
 
 
-class OrdersWindow(QMainWindow):
+class CancelWindow(QMainWindow):
     def __init__(self):
         super().__init__()
 
@@ -13,7 +13,7 @@ class OrdersWindow(QMainWindow):
 
         self.table = QTableWidget()
         self.table.setColumnCount(3)  # Tarih, Ürünler
-        self.table.setHorizontalHeaderLabels(["Saat", "Ürünler", "Bitirme"])
+        self.table.setHorizontalHeaderLabels(["Tarih", "Saat", "İşlem"])
 
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -40,24 +40,34 @@ class OrdersWindow(QMainWindow):
         QMessageBox.information(self, "Bilgi", self.table.item(row, column).text())
 
     def load_orders(self):
-        data = []
-        with open("database/aktif_siparisler.txt", "r", encoding='utf-8') as file:
+        orders = []
+        kullanici_orders = []
+        with open("database/siparisler.txt", "r", encoding='utf-8') as file:
 
             for satir in file:
                 bilgiler = satir.strip().split(",")
                 #map(str.rstrip, bilgiler)
-                if bilgiler[3] != "x":
-                    data.append({"date": bilgiler[2], "items": bilgiler[3]})
+                # !!!!!!!!!!!!!!!!!!!!!!!!
+                orders.append({"k_adi": bilgiler[0], "date": bilgiler[1], "time": bilgiler[2], "items": bilgiler[3],
+                               "fiyat": bilgiler[4], "yorum": bilgiler[5]})
+                if orders[0] == self.k_adi:
+                    kullanici_orders.append({"k_adi": bilgiler[0], "date": bilgiler[1], "time": bilgiler[2],
+                                             "items": bilgiler[3], "fiyat": bilgiler[4], "yorum": bilgiler[5]})
 
-        self.table.setRowCount(len(data))
-        for i, order in enumerate(data):
+        self.table.setRowCount(len(kullanici_orders))
+        for i, order in enumerate(kullanici_orders):
             self.table.setItem(i, 0, QTableWidgetItem(order["date"]))
-            self.table.setItem(i, 1, QTableWidgetItem(order["items"]))
+            self.table.setItem(i, 1, QTableWidgetItem(order["time"]))
 
+            if order["items"] == "x":
             # Add Comment Button
-            btn_finalize = QPushButton('Bitti')
-            btn_finalize.clicked.connect(lambda ch=True, row=i: self.finalize_order(row))
-            self.table.setCellWidget(i, 2, btn_finalize)
+                btn_finalize = QPushButton('Rezervasyonu İptal Et')
+                btn_finalize.clicked.connect(lambda ch=True, row=i: self.finalize_order(row))
+                self.table.setCellWidget(i, 2, btn_finalize)
+            else:
+                btn_finalize = QPushButton('Rezervasyonu İptal Et')
+                btn_finalize.clicked.connect(lambda ch=True, row=i: self.finalize_order(row))
+                self.table.setCellWidget(i, 2, btn_finalize)
 
     # (WIP) KHALİLİ  Garsonun Sistemi belli bir saniyede bir güncellenecekki yeni siparişler gözüksün
     # Bitti butonuna basıldığında siparişin bitirilmesini sağlar
@@ -86,6 +96,6 @@ class OrdersWindow(QMainWindow):
 
 if __name__ == '__main__':
     app = QApplication(sys.argv)
-    window = OrdersWindow()
+    window = CancelWindow()
     window.show()
     sys.exit(app.exec())

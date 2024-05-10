@@ -35,8 +35,8 @@ class ReservationWindow(QMainWindow):
             print("Eski tarihe rezervasyon alınamaz")
         else:
             with open("database/aktif_siparisler.txt", "a", encoding='utf-8') as file:
-                file.write(self.k_adi + "," + "5" + "," + selected_date.toString('yyyy-MM-dd') + "," +
-                           selected_time.toString("HH:mm") + ",x,x,x,x\n")
+                file.write(self.k_adi + "," + selected_date.toString('yyyy-MM-dd') + "," +
+                           selected_time.toString("HH:mm") + ",x,x\n")
 
 
     def is_datetime_before_current(self, selected_date, selected_time):

@@ -103,28 +103,32 @@ def aylik_gelir(year, month):
     return fig
 
 
-def aylik_gider(year, month):
-    # Read outcome data
-    outcome_data = pd.read_csv("database/gider.txt", sep=' ', header=None, names=['Year', 'Month', 'Outcome'])
+def yemek_populerlik():
+    # Dictionary to store food counts
+    food_counts = {}
 
-    # Filter outcome data for the specified year and month
-    outcome_data_month = outcome_data[(outcome_data['Year'] == year) & (outcome_data['Month'] == month)].copy()
+    # Open the file and read each line
+    with open("../database/siparisler.txt", 'r') as file:
+        for line in file:
+            # Split the line by comma
+            parts = line.strip().split(',')
+            # Extract the food items
+            foods = parts[3].split('-')
+            # Update the counts for each food item
+            for food in foods:
+                food_counts[food] = food_counts.get(food, 0) + 1
 
-    # If there's no data for the specified month, return early
-    if outcome_data_month.empty:
-        print(f"No data found for year {year} and month {month}.")
-        return
+    # Plotting the food counts
+    foods = list(food_counts.keys())
+    counts = list(food_counts.values())
 
-    # Plot the outcome data
-    fig = plt.figure()
-    ax = fig.add_subplot(111)
+    plt.figure(figsize=(10, 6))
+    plt.bar(foods, counts, width = 0.5)
+    plt.xlabel('Food Items')
+    plt.ylabel('Counts')
+    plt.title('Food Counts in Orders')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+    plt.show()
 
-    # Plot the income data
-    ax.plot(range(1, len(outcome_data_month) + 1), outcome_data_month['Outcome'], marker='o')
-    ax.set_xlabel('Data Point')
-    ax.set_ylabel('Outcome')
-    ax.set_title(f'Outcome for Year {year} and Month {month}')
-    ax.grid(True)
-
-    return fig
-
+yemek_populerlik()
