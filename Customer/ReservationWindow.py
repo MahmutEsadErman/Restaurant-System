@@ -32,8 +32,9 @@ class ReservationWindow(QMainWindow):
         selected_time = self.ui.timeEdit.time()
 
         if self.is_datetime_before_current(selected_date, selected_time):
-            print("Eski tarihe rezervasyon alınamaz")
+            QMessageBox.warning(self, "Hata", "Eski tarihe rezervasyon alınamaz!")
         else:
+            QMessageBox.information(self, "Bilgi", "Rezervasyon işlemi başarılı!\nİsterseniz siparişi başka tarihte verebilirsiniz.")
             with open("database/aktif_siparisler.txt", "a", encoding='utf-8') as file:
                 file.write(self.k_adi + "," + selected_date.toString('yyyy-MM-dd') + "," +
                            selected_time.toString("HH:mm") + ",x,x\n")

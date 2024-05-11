@@ -174,7 +174,7 @@ class OrderHistoryWindow(HistoryWindow):
             if order["items"] == "x":
                 # Add Comment Button
                 btn_comment = QPushButton('Sipariş Yap')
-                btn_comment.clicked.connect(lambda checked, order=order: self.go_order_page)
+                btn_comment.clicked.connect(lambda: self.go_order_page(order))
                 self.table.setCellWidget(i, 2, btn_comment)
             else:
                 self.table.setItem(i, 2, QTableWidgetItem("Sipariş Yapılmış"))

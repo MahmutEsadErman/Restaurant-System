@@ -1,7 +1,7 @@
-kiraz 85
-elma 30
+kiraz 77
+elma 28
 muz 15
-ayva 40
+ayva 38
 çilek 25
 kivi 45
 kebap 0

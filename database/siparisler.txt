@@ -9,7 +9,7 @@ e,2024-05-08,22:50,kiraz,80,x
 e,2024-05-09,00:22,elma,10,mükemmel
 e,2024-05-09,00:24,kiraz-muz,90,çok güzeldi yemek
 e,2024-05-09,00:36,kiraz,80,hoş bir yemek
-a,2024-05-09,10:21,kiraz-muz,90,x
+a,2024-05-09,10:21,kiraz-muz,90,mikemmel
 a,2024-05-09,10:21,kiraz-muz,90,x
 a,2024-05-09,10:21,kiraz-muz,90,x
 e,2024-05-09,11:19,kiraz-kiraz,160,merhaba

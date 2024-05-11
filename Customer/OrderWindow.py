@@ -4,7 +4,7 @@ from datetime import datetime
 from PySide6.QtGui import QColor
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidgetItem, QAbstractItemView, \
-    QInputDialog, QHeaderView
+    QInputDialog, QHeaderView, QMessageBox
 from PySide6.QtCore import QFile
 
 
@@ -124,9 +124,7 @@ class OrderWindow(QMainWindow):
         self.ui.total_price_label.setText("Toplam Fiyat: " + str(total_price) + " TL")
         self.total_price = total_price
 
-    def siparisVer(self, order):
-        print("ordertype: ", self.order_type)
-
+    def siparisVer(self):
         for i, food in enumerate(self.foods):
             for order in self.orders:
                 if food == order[0]:
@@ -153,7 +151,7 @@ class OrderWindow(QMainWindow):
         # Sonradan Sipariş Verme
         if self.order_type == 1:
             print("Sonradan Sipariş Verdik")
-
+            print(self.selected_order)
             orders = []
             with open("database/aktif_siparisler.txt", "r", encoding='utf-8') as file:
 
@@ -164,26 +162,32 @@ class OrderWindow(QMainWindow):
                     orders.append(
                         {"k_adi": bilgiler[0], "tarih": bilgiler[1], "saat": bilgiler[2], "items": bilgiler[3],
                          "fiyat": bilgiler[4]})
-
-                if self.selected_order == order:
-                    self.selected_order["items"] = siparisler
-                    self.selected_order["fiyat"] = str(self.total_price)
+                for order in orders:
+                    if self.selected_order["k_adi"] == order["k_adi"] and self.selected_order["saat"] == order["saat"]:
+                        self.selected_order["items"] = siparisler
+                        self.selected_order["fiyat"] = str(self.total_price)
 
             with open("database/aktif_siparisler.txt", "w", encoding='utf-8') as file:
 
                 for order in orders:
-                    file.write(order[0] + "," + order[1] + "," + order[2] + "," + order[3] + "," + order[4] + "\n")
+                    file.write(order["k_adi"] + "," + order["tarih"] + "," + order["saat"] + "," + order["items"] + ","
+                               + order["fiyat"] + "\n")
+
+            self.selected_order = None
 
         with open("database/gelir.txt", "a", encoding='utf-8') as dosya:
             dosya.write(str(datetime.now().year) + " " + str(datetime.now().month) + " " + str(self.total_price) + "\n")
+
+        self.reset_lists()
+        self.ui.total_price_label.setText("Toplam Fiyat: 0 TL")
         return True
 
     def bosMu(self):
         if len(self.orders) == 0:
-            print("Hata")
-            return False
-        else:
+            QMessageBox.warning(self, "Hata", "Hiçbir ürün seçmeden sipariş verilemez!")
             return True
+        else:
+            return False
 
 
 if __name__ == "__main__":

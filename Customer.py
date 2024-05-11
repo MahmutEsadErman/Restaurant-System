@@ -34,7 +34,7 @@ class MainWindow(QMainWindow):
         self.orderMenu = OrderMenu()
         self.reservationWindow = ReservationWindow()
         self.historyWindow = HistoryWindow()
-        self.orderHistoryWindow = OrderHistoryWindow(lambda: self.gotoPage(self.orderWindow))
+        self.orderHistoryWindow = OrderHistoryWindow(self.go_order_window)
         self.paymentWindow = PaymentWindow()
         # self.cancelWindow = CancelWindow()
 
@@ -66,24 +66,22 @@ class MainWindow(QMainWindow):
         self.mainmenu.ui.button3.clicked.connect(lambda: self.gotoPage(self.historyWindow))
         self.mainmenu.ui.button4.clicked.connect(lambda: self.gotoPage(self.loginWindow))
         # Order Window
-
         self.orderWindow.ui.back_button.clicked.connect(lambda: self.gotoPage(self.orderMenu))
         self.orderMenu.ui.button1.clicked.connect(self.instant_order)
-        self.orderMenu.ui.button2.clicked.connect(self.order_from_reservation)
+        self.orderMenu.ui.button2.clicked.connect(lambda: self.gotoPage(self.orderHistoryWindow))
         self.orderMenu.ui.button4.clicked.connect(lambda: self.gotoPage(self.mainmenu))
 
         self.orderWindow.ui.order_button.clicked.connect(lambda: self.gotoPage(self.paymentWindow))
         # Reservation Window
         self.reservationWindow.ui.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
         self.reservationWindow.ui.signup_button.clicked.connect(self.reservationWindow.end_reservation)
+        self.reservationWindow.ui.signup_button.clicked.connect(lambda: self.gotoPage(self.orderWindow))
         # History Window
         self.historyWindow.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
         self.orderHistoryWindow.back_button.clicked.connect(lambda: self.gotoPage(self.orderMenu))
         # Payment Window
-        self.paymentWindow.ui.odeme_butonu.clicked.connect(self.orderWindow.siparisVer)
-        self.paymentWindow.ui.odeme_butonu.clicked.connect(lambda: self.gotoPage(self.mainmenu))
+        self.paymentWindow.ui.odeme_butonu.clicked.connect(self.pay)
         self.paymentWindow.ui.exit_button.clicked.connect(lambda: self.gotoPage(self.orderWindow))
-
 
     def register(self):
         if self.registerWindow.uyeOl():
@@ -120,31 +118,20 @@ class MainWindow(QMainWindow):
 
     def instant_order(self):
         self.orderWindow.order_type = 0
-
         self.gotoPage(self.orderWindow)
-
-    def order_from_reservation(self):
-        self.orderWindow.order_type = 1
-
-        self.gotoPage(self.orderHistoryWindow)
 
     def go_order_window(self, order):
         self.orderWindow.order_type = 1
         self.orderWindow.selected_order = order
-        self.gotoPage(self.orderHistoryWindow)
+        self.gotoPage(self.orderWindow)
+
+    def pay(self):
+        if not self.orderWindow.bosMu():
+            self.orderWindow.siparisVer()
+            self.stackedWidget.setCurrentWidget(self.mainmenu)
 
     def gotoPage(self, window):
-        if window == self.paymentWindow:
-            if self.orderWindow.bosMu():
-                self.stackedWidget.setCurrentWidget(window)
-
-        else:
-            if window == self.mainmenu:
-                # Reset order-related attributes in OrderWindow
-                self.orderWindow.reset_lists()
-                # Reset total price label
-                self.orderWindow.ui.total_price_label.setText("Toplam Fiyat: 0 TL")
-            self.stackedWidget.setCurrentWidget(window)
+        self.stackedWidget.setCurrentWidget(window)
 
 
 if __name__ == "__main__":
