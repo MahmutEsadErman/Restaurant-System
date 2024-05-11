@@ -164,8 +164,8 @@ class OrderWindow(QMainWindow):
                          "fiyat": bilgiler[4]})
                 for order in orders:
                     if self.selected_order["k_adi"] == order["k_adi"] and self.selected_order["saat"] == order["saat"]:
-                        self.selected_order["items"] = siparisler
-                        self.selected_order["fiyat"] = str(self.total_price)
+                        order["items"] = siparisler
+                        order["fiyat"] = str(self.total_price)
 
             with open("database/aktif_siparisler.txt", "w", encoding='utf-8') as file:
 

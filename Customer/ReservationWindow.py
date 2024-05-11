@@ -1,4 +1,5 @@
 import sys
+from datetime import datetime
 
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
@@ -26,6 +27,7 @@ class ReservationWindow(QMainWindow):
         # Connect the signal of the QCalendarWidget to the slot end_reservation
         #self.ui.calendarWidget.selectionChanged.connect(self.end_reservation)
 
+
     def end_reservation(self):
 
         selected_date = self.ui.calendarWidget.selectedDate()
@@ -38,6 +40,8 @@ class ReservationWindow(QMainWindow):
             with open("database/aktif_siparisler.txt", "a", encoding='utf-8') as file:
                 file.write(self.k_adi + "," + selected_date.toString('yyyy-MM-dd') + "," +
                            selected_time.toString("HH:mm") + ",x,x\n")
+            with open("database/gelir.txt", "a", encoding='utf-8') as file:
+                file.write(str(datetime.now().year) + " " + str(datetime.now().month) + " 100\n")
 
 
     def is_datetime_before_current(self, selected_date, selected_time):
