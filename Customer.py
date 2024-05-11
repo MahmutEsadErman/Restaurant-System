@@ -34,7 +34,7 @@ class MainWindow(QMainWindow):
         self.orderMenu = OrderMenu()
         self.reservationWindow = ReservationWindow()
         self.historyWindow = HistoryWindow()
-        self.orderHistoryWindow = OrderHistoryWindow(self.go_order_window)
+        self.orderHistoryWindow = OrderHistoryWindow(lambda: self.gotoPage(self.orderWindow))
         self.paymentWindow = PaymentWindow()
         # self.cancelWindow = CancelWindow()
 
@@ -80,7 +80,7 @@ class MainWindow(QMainWindow):
         self.historyWindow.back_button.clicked.connect(lambda: self.gotoPage(self.mainmenu))
         self.orderHistoryWindow.back_button.clicked.connect(lambda: self.gotoPage(self.orderMenu))
         # Payment Window
-        self.paymentWindow.ui.odeme_butonu.clicked.connect(lambda: self.orderWindow.siparisVer)
+        self.paymentWindow.ui.odeme_butonu.clicked.connect(self.orderWindow.siparisVer)
         self.paymentWindow.ui.odeme_butonu.clicked.connect(lambda: self.gotoPage(self.mainmenu))
         self.paymentWindow.ui.exit_button.clicked.connect(lambda: self.gotoPage(self.orderWindow))
 
