@@ -3,7 +3,6 @@ import sys
 from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget, QMessageBox
 
 from General.LoginWindow import LoginWindow
-from General.RegisterWindow import RegisterWindow
 
 from Management.MainMenu import MainMenu
 from Management.CommentsWindow import CommentsWindow
@@ -21,9 +20,6 @@ class MainWindow(QMainWindow):
         # Set initial windows size
         self.screenSize = QApplication.primaryScreen().size()
         self.resize(800, 640)
-
-        # Move Window to Center
-        self.move(self.screenSize.width() / 2, self.screenSize.height() / 2)
 
         # Setting Pages
         self.stackedWidget = QStackedWidget()

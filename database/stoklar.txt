@@ -1,7 +1,7 @@
-kiraz 76
-elma 27
-muz 8
-ayva 33
-çilek 21
-kivi 41
-kebap 0
+Kebap,73
+Büryan,26
+Tavuk,45
+İskender,32
+Köfte,20
+Karışık Izgara,10
+Çorba,97

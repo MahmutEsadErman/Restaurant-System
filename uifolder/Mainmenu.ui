@@ -14,7 +14,11 @@
    <string>Form</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">QFrame#frame{
+   <string notr="true">QWidget#CustomerMainMenu{
+	background-color: rgb(39, 44, 54);
+}
+
+QFrame#frame{
 	margin: 60px;
 	border-radius: 20px;
 	background-color: rgba(225, 228, 221, 120);
