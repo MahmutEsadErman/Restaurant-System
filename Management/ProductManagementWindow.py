@@ -25,13 +25,13 @@ class ProductManagementWindow(QMainWindow):
 
         with open("database/urun_fiyat.txt", "r", encoding='utf-8') as file:
             for lines in file:
-                bilgiler = lines.split(" ")
+                bilgiler = lines.split(",")
                 foods.append(bilgiler[0])
                 fiyatlar.append(bilgiler[1].rstrip())
 
         with open("database/stoklar.txt", "r", encoding='utf-8') as file:
             for lines in file:
-                adetler.append(lines.split(" ")[1].rstrip())
+                adetler.append(lines.split(",")[1].rstrip())
 
         # Set the table properties
         self.ui.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)

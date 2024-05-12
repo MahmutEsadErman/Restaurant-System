@@ -164,13 +164,13 @@ class OrderHistoryWindow(HistoryWindow):
 
             # Add Cancel Button
             btn_cancel = QPushButton('İptal')
-            btn_cancel.clicked.connect(lambda: self.delete_order(i))
+            btn_cancel.clicked.connect(lambda ch=True, row=i: self.delete_order(row))
             self.table.setCellWidget(i, 3, btn_cancel)
 
             if order["items"] == "x":
                 # Add Comment Button
                 btn_comment = QPushButton('Sipariş Yap')
-                btn_comment.clicked.connect(lambda checked, order=order: self.go_order_page(order))
+                btn_comment.clicked.connect(lambda checked, x=order: self.go_order_page(x))
                 self.table.setCellWidget(i, 2, btn_comment)
             else:
                 self.table.setItem(i, 2, QTableWidgetItem("Sipariş Yapılmış"))

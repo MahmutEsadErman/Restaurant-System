@@ -3,6 +3,4 @@ Büryan,30
 Tavuk Şiş,10
 İskender,40
 Köfte,25
-Karışık Izgara,45
 Çorba,50
-Karışık Izgara,0
