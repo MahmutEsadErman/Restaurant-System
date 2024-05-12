@@ -76,8 +76,8 @@ class ProductManagementWindow(QMainWindow):
                     else:
                         adet = "0"
 
-                    stoklar_file.write(f"{urun} {adet}\n")
-                    fiyatlar_file.write(f"{urun} {fiyat}\n")
+                    stoklar_file.write(f"{urun},{adet}\n")
+                    fiyatlar_file.write(f"{urun},{fiyat}\n")
 
 
 if __name__ == "__main__":

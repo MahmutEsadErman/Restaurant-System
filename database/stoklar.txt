@@ -1,7 +1,7 @@
 Kebap,73
 Büryan,26
-Tavuk,45
+Tavuk Şiş,45
 İskender,32
 Köfte,20
 Karışık Izgara,10
-Çorba,97
+Çorba,95
