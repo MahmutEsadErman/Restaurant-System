@@ -1,6 +1,6 @@
 Kebap,85
 Büryan,30
 Tavuk Şiş,10
-İskender,40
-Köfte,25
-Çorba,50
+Köfte,40
+Çorba,25
+İskender,90

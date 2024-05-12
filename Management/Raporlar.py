@@ -99,9 +99,9 @@ def yemek_populerlik():
 
     fig = plt.figure(figsize=(10, 6))
     plt.bar(foods, counts, width=0.5)
-    plt.xlabel('Food Items')
-    plt.ylabel('Counts')
-    plt.title('Food Counts in Orders')
+    plt.xlabel('Yemekler')
+    plt.ylabel('Satilan Adet')
+    plt.title('Yemek Populerlik Tablosu')
     plt.xticks(rotation=45)
     plt.tight_layout()
 
