@@ -49,7 +49,6 @@ def yillik_gider(year):
 
 
 def yillik_gelir_gider(year):
-
     income_data = pd.read_csv("database/gelir.txt", sep=' ', header=None, names=['Year', 'Month', 'Income'])
     outcome_data = pd.read_csv("database/gider.txt", sep=' ', header=None, names=['Year', 'Month', 'Outcome'])
 
@@ -79,32 +78,31 @@ def yillik_gelir_gider(year):
     return fig
 
 
-# def yemek_populerlik():
-#     # Dictionary to store food counts
-#     food_counts = {}
-#
-#     # Open the file and read each line
-#     with open("database/siparisler.txt", 'r') as file:
-#         for line in file:
-#             # Split the line by comma
-#             parts = line.strip().split(',')
-#             # Extract the food items
-#             foods = parts[3].split('-')
-#             # Update the counts for each food item
-#             for food in foods:
-#                 food_counts[food] = food_counts.get(food, 0) + 1
-#
-#     # Plotting the food counts
-#     foods = list(food_counts.keys())
-#     counts = list(food_counts.values())
-#
-#     plt.figure(figsize=(10, 6))
-#     plt.bar(foods, counts, width = 0.5)
-#     plt.xlabel('Food Items')
-#     plt.ylabel('Counts')
-#     plt.title('Food Counts in Orders')
-#     plt.xticks(rotation=45)
-#     plt.tight_layout()
-#     plt.show()
-#
-# yemek_populerlik()
+def yemek_populerlik():
+    # Dictionary to store food counts
+    food_counts = {}
+
+    # Open the file and read each line
+    with open("database/siparisler.txt", 'r') as file:
+        for line in file:
+            # Split the line by comma
+            parts = line.strip().split(',')
+            # Extract the food items
+            foods = parts[3].split('-')
+            # Update the counts for each food item
+            for food in foods:
+                food_counts[food] = food_counts.get(food, 0) + 1
+
+    # Plotting the food counts
+    foods = list(food_counts.keys())
+    counts = list(food_counts.values())
+
+    fig = plt.figure(figsize=(10, 6))
+    plt.bar(foods, counts, width=0.5)
+    plt.xlabel('Food Items')
+    plt.ylabel('Counts')
+    plt.title('Food Counts in Orders')
+    plt.xticks(rotation=45)
+    plt.tight_layout()
+
+    return fig

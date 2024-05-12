@@ -52,13 +52,13 @@ class OrderWindow(QMainWindow):
     def setup_window(self):
         with open("database/urun_fiyat.txt", "r", encoding='utf-8') as file:
             for lines in file:
-                bilgiler = lines.strip().split(" ")
+                bilgiler = lines.strip().split(",")
                 self.foods.append(bilgiler[0])
                 self.fiyatlar.append(bilgiler[1])
 
         with open("database/stoklar.txt", "r", encoding='utf-8') as file:
             for lines in file:
-                bilgiler = lines.strip().split(" ")
+                bilgiler = lines.strip().split(",")
                 self.stoklar.append(int(bilgiler[1]))
 
         # Set the table properties
@@ -136,7 +136,7 @@ class OrderWindow(QMainWindow):
         with open("database/stoklar.txt", "w", encoding='utf-8') as dosya:
             print(len(self.stoklar))
             for i in range(len(self.stoklar)):
-                dosya.write(self.foods[i] + " " + str(self.stoklar[i]) + "\n")
+                dosya.write(self.foods[i] + "," + str(self.stoklar[i]) + "\n")
 
         siparisler = "-".join("-".join([order[0]] * order[2]) for order in self.orders)
 

@@ -25,7 +25,7 @@ class StockWindow(QMainWindow):
 
         with open("database/stoklar.txt", "r", encoding='utf-8') as file:
             for lines in file:
-                line = lines.split(" ")
+                line = lines.split(",")
                 foods.append(line[0])
                 adetler.append(line[1])
 
@@ -63,7 +63,7 @@ class StockWindow(QMainWindow):
 
         with open("database/urun_fiyat.txt", "r", encoding='utf-8') as fiyatlar_file:
             for lines in fiyatlar_file:
-                line = lines.split(" ")
+                line = lines.split(",")
                 urunler.append(line[0])
 
         with open("database/urun_fiyat.txt", "a", encoding='utf-8') as fiyatlar_file:
@@ -73,7 +73,7 @@ class StockWindow(QMainWindow):
                     urun = self.ui.table.item(i, 0).text().rstrip()
 
                     if urun not in urunler:
-                        fiyatlar_file.write(f"{urun} 0\n")
+                        fiyatlar_file.write(f"{urun},0\n")
 
                     if self.ui.table.item(i, 1) is not None:
                         adet = self.ui.table.item(i, 1).text().rstrip()
@@ -83,7 +83,7 @@ class StockWindow(QMainWindow):
                     if self.ui.table.item(i, 2) is not None:
                         gider += int(self.ui.table.item(i, 2).text().rstrip())
 
-                    stoklar_file.write(f"{urun} {adet}\n")
+                    stoklar_file.write(f"{urun},{adet}\n")
 
             with open("database/gider.txt", "a", encoding='utf-8') as giderler_file:
                 giderler_file.write(str(datetime.now().year) + " " + str(datetime.now().month) + " " + str(gider) + "\n")

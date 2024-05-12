@@ -13,7 +13,7 @@ class MainWindow(QMainWindow):
         super().__init__()
 
         # Set Window Title
-        self.setWindowTitle("Restoran Sistemi (Müşteri)")
+        self.setWindowTitle("Restoran Sistemi (Worker)")
 
         # Set initial windows size
         self.screenSize = QApplication.primaryScreen().size()

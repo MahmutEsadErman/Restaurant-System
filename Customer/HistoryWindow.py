@@ -3,7 +3,7 @@ from datetime import datetime
 from functools import partial
 
 from PySide6.QtCore import QTimer
-from PySide6.QtWidgets import QApplication, QMainWindow, QTableWidget, QVBoxLayout, QWidget, QTableWidgetItem, \
+from PySide6.QtWidgets import QMainWindow, QTableWidget, QVBoxLayout, QWidget, QTableWidgetItem, \
     QPushButton, QMessageBox, QAbstractItemView, QInputDialog, QHeaderView
 
 from Customer.OrderWindow import OrderWindow
@@ -92,16 +92,6 @@ class HistoryWindow(QMainWindow):
                 file.write(orders[j]["k_adi"] + "," + orders[j]["date"] + "," + orders[j]["time"] + "," + orders[j][
                     "items"] + "," + orders[j]["fiyat"] + "," + orders[j]["yorum"] + "\n")
 
-    # (WIP) Khalili, Esadi
-    # Buraya benim bakmam da gerekebilir Sen Bana haber verirsin Halil abi
-    """"
-    def give_order(self, row, orders):
-        self.orderwindow = OrderWindow()
-        self.orderwindow.show()
-        self.orderwindow.ui.order_button.clicked.connect(lambda: self.orderwindow.hide())
-        pass
-    """
-
     def update_k_adi(self, k_adi):
         self.k_adi = k_adi
         self.load_orders()
@@ -126,8 +116,8 @@ class OrderHistoryWindow(HistoryWindow):
         self.setWindowTitle("Geçmiş Siparişler")
 
         self.table = QTableWidget()
-        self.table.setColumnCount(3)  # Tarih, Ürünler, Yorum Butonu
-        self.table.setHorizontalHeaderLabels(["Tarih", "Saat", "Sipariş Durumu"])
+        self.table.setColumnCount(4)  # Tarih, Ürünler, Yorum Butonu
+        self.table.setHorizontalHeaderLabels(["Tarih", "Saat", "Sipariş Durumu", "Sipariş İptali"])
 
         self.table.horizontalHeader().setSectionResizeMode(QHeaderView.Stretch)
         self.table.setEditTriggers(QAbstractItemView.NoEditTriggers)
@@ -172,6 +162,11 @@ class OrderHistoryWindow(HistoryWindow):
             self.table.setItem(i, 0, QTableWidgetItem(order["tarih"]))
             self.table.setItem(i, 1, QTableWidgetItem(order["saat"]))
 
+            # Add Cancel Button
+            btn_cancel = QPushButton('İptal')
+            btn_cancel.clicked.connect(lambda: self.delete_order(i))
+            self.table.setCellWidget(i, 3, btn_cancel)
+
             if order["items"] == "x":
                 # Add Comment Button
                 btn_comment = QPushButton('Sipariş Yap')
@@ -180,22 +175,25 @@ class OrderHistoryWindow(HistoryWindow):
             else:
                 self.table.setItem(i, 2, QTableWidgetItem("Sipariş Yapılmış"))
 
-    # def give_order(self):
-        # if kullanici_orders[row] in orders:
-        #     row_index = orders.index(kullanici_orders[row])
-        #     orders[row_index]["tarih"] = str(datetime.now().date())
-        #     orders[row_index]["saat"] = str(datetime.now().strftime("%H:%M"))
-        #     orders[row_index]["items"] = "muz-kiraz"
-        #     orders[row_index]["fiyat"] = "150"
-        #
-        # with open("database/aktif_siparisler.txt", "w", encoding='utf-8') as file:
-        #     for j in range(len(orders)):
-        #         file.write(orders[j]["k_adi"] + "," + orders[j]["masa"] + "," + orders[j]["r_tarih"] + "," + orders[j][
-        #             "r_saat"] + "," + orders[j]["tarih"] + "," + orders[j]["saat"] + "," + orders[j]["items"] + "," +
-        #                    orders[j]["fiyat"] + "\n")
-        #
-        # with open("database/gelir.txt", "a", encoding='utf-8') as file:
-        #     file.write(str(datetime.now().year) + " " + str(datetime.now().month) + " " + "150" + "\n")
+    def delete_order(self, row):
+
+        with open("database/aktif_siparisler.txt", "r", encoding='utf-8') as file:
+
+            orders = [line.strip().split(",") for line in file]
+
+        order_to_remove = (self.table.item(row, 0).text(),
+                           self.table.item(row, 1).text())
+
+        for order in orders:
+            if (order[1], order[2]) == order_to_remove:
+                orders.remove(order)
+                break
+
+        with open("database/aktif_siparisler.txt", "w", encoding='utf-8') as dosya:
+            for order in orders:
+                dosya.write(",".join(order) + "\n")
+
+        self.load_orders()
 
     def update_k_adi(self, k_adi):
         self.k_adi = k_adi
