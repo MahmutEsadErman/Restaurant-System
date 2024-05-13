@@ -1,6 +1,9 @@
-Kebap,60
-Büryan,17
-Tavuk Şiş,39
-Köfte,30
-Çorba,80
-İskender,15
+Kebap,72
+Büryan,22
+Tavuk Şiş,55
+Köfte,34
+Çorba,90
+İskender,30
+Ayran,40
+Meyve Suyu,200
+Çay,1000

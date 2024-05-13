@@ -1,42 +1,9 @@
-mhy58,2023-04-20,21:10,muz-muz-armut,140,yemek güzeldi
-e,2023-04-20,21:40,muz-elma-armut,160,Eh işte
-e,2023-06-10,22:00,muz-elma-armut,115,iyidir
-mhy58,2023-05-8,22:00,elma-kiraz-armut,115,x
-e,2023-04-20,22:00,elma-elma,115,cok kötüydü
-mhy58,2024-05-08,20:30,kiraz-muz-muz,100,selamlar
-mhy58,2024-05-08,20:31,elma-elma-elma-muz,40,çooook begenmedim
-e,2024-05-08,22:50,kiraz,80,x
-e,2024-05-09,00:22,elma,10,mükemmel
-e,2024-05-09,00:24,kiraz-muz,90,çok güzeldi yemek
-e,2024-05-09,00:36,kiraz,80,hoş bir yemek
-a,2024-05-09,10:21,kiraz-muz,90,mikemmel
-a,2024-05-09,10:21,kiraz-muz,90,x
-a,2024-05-09,10:21,kiraz-muz,90,x
-e,2024-05-09,11:19,kiraz-kiraz,160,merhaba
-mhy58,2024-05-09,11:36,elma-elma-elma-muz-muz,50,x
-e,2024-05-09,12:10,elma-elma,20,x
-e,2024-05-09,17:48,muz,10,x
-e,2024-05-09,22:46,kiraz-kiraz-kiraz-ayva-ayva,335,x
-a,2024-05-10,10:42,elma-ayva,70,x
-a,2024-05-10,10:49,muz-çilek,35,keşke kebap alsaydım
-e,2024-05-10,16:03,ayva,40,x
-e,2024-05-10,16:04,ayva-elma,70,x
-e,2024-05-10,16:06,ayva,40,x
-e,2024-05-10,16:06,çilek,25,selamlar
-e,2024-05-10,17:33,muz,10,x
-e,2024-05-10,17:33,kivi-muz,55,x
-e,2024-05-10,17:38,ayva-kivi-kivi,130,güzeldiii
-e,2024-05-10,17:38,ayva-elma,70,x
-e,2024-05-10,17:40,elma-ayva-kivi,0,x
-e,2024-05-10,16:03,ayva,40,x
-e,2024-05-10,20:04,çilek,25,x
-a,2024-05-12,00:00,kiraz,85,x
-a,2024-05-12,21:40,Büryan-Çorba,80,x
+a,2024-05-12,21:40,Büryan-Çorba,80,Büryan güzeldi
 a,2024-05-12,21:41,Kebap,85,x
 a,2024-05-12,21:51,Çorba-Kebap,135,merhaba
-a,2024-05-12,21:50,Kebap-İskender-Köfte,150,x
+a,2024-05-12,21:50,Kebap-İskender-Köfte,150,Keşke Büryan alsaydım
 e,2024-05-12,16:49,ayva,40,x
-e,2024-05-13,06:10,Köfte,15,x
+e,2024-05-13,06:10,Köfte,15,Büryan çok iyiymiş çok beğendim
 e,2024-05-13,02:20,Köfte,50,x
-e,2024-05-13,04:40,Çorba,20,x
+e,2024-05-13,04:40,Çorba,20,açık ayran olsaydı içerdik
 e,2024-05-13,00:20,Tavuk Şiş-Köfte,35,x

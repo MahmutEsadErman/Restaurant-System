@@ -82,7 +82,7 @@ class StockWindow(QMainWindow):
                     else:
                         adet = 0
 
-                    if self.ui.table.item(i, 2) is not None:
+                    if self.ui.table.item(i, 2) is not None and self.ui.table.item(i, 2) != '':
                         gider += int(self.ui.table.item(i, 2).text().rstrip())
 
                     stoklar_file.write(f"{urun},{adet}\n")
