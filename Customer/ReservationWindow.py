@@ -23,11 +23,6 @@ class ReservationWindow(QMainWindow):
         ui_file.close()
         self.setCentralWidget(self.ui)
 
-
-        # Connect the signal of the QCalendarWidget to the slot end_reservation
-        #self.ui.calendarWidget.selectionChanged.connect(self.end_reservation)
-
-
     def end_reservation(self):
 
         selected_date = self.ui.calendarWidget.selectedDate()
@@ -36,13 +31,13 @@ class ReservationWindow(QMainWindow):
         if self.is_datetime_before_current(selected_date, selected_time):
             QMessageBox.warning(self, "Hata", "Eski tarihe rezervasyon alınamaz!")
         else:
-            QMessageBox.information(self, "Bilgi", "Rezervasyon işlemi başarılı!\nİsterseniz siparişi başka tarihte verebilirsiniz.")
+            QMessageBox.information(self, "Bilgi",
+                                    "Rezervasyon işlemi başarılı!\nİsterseniz siparişi başka tarihte verebilirsiniz.")
             with open("database/aktif_siparisler.txt", "a", encoding='utf-8') as file:
                 file.write(self.k_adi + "," + selected_date.toString('yyyy-MM-dd') + "," +
                            selected_time.toString("HH:mm") + ",x,x\n")
             with open("database/gelir.txt", "a", encoding='utf-8') as file:
                 file.write(str(datetime.now().year) + " " + str(datetime.now().month) + " 100\n")
-
 
     def is_datetime_before_current(self, selected_date, selected_time):
         # Get the current datetime

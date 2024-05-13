@@ -35,11 +35,14 @@ class OrderWindow(QMainWindow):
         self.setup_window()
 
     def reset_lists(self):
-        #self.foods = []
+        # self.foods = []
         self.fiyatlar = []
         #self.stoklar = []
         self.orders = []
         self.total_price = 0
+        self.ui.selections_label.setText("Seçtiğiniz Ürünler: ")
+        self.row_colors_toggled = {}
+        self.ui.total_price_label.setText("Toplam Fiyat: 0 TL")
 
         for i in range(self.ui.table.rowCount()):
             item = self.ui.table.item(i, 2)
@@ -48,6 +51,8 @@ class OrderWindow(QMainWindow):
                 self.ui.table.item(i, 1).setBackground(QColor(255, 255, 255))
                 self.ui.table.item(i, 2).setBackground(QColor(255, 255, 255))
                 item.setText("")
+
+
 
     def setup_window(self):
         with open("database/urun_fiyat.txt", "r", encoding='utf-8') as file:
@@ -134,7 +139,6 @@ class OrderWindow(QMainWindow):
                         self.stoklar[i] -= order[2]
 
         with open("database/stoklar.txt", "w", encoding='utf-8') as dosya:
-            print(len(self.stoklar))
             for i in range(len(self.stoklar)):
                 dosya.write(self.foods[i] + "," + str(self.stoklar[i]) + "\n")
 
@@ -142,7 +146,6 @@ class OrderWindow(QMainWindow):
 
         # Anında Sipariş Verme
         if self.order_type == 0:
-            print("Anında Sipariş Verdik")
             with open("database/aktif_siparisler.txt", "a", encoding='utf-8') as dosya:
 
                 dosya.write(self.k_adi + "," + str(datetime.now().date()) + "," + str(
@@ -150,20 +153,17 @@ class OrderWindow(QMainWindow):
 
         # Sonradan Sipariş Verme
         if self.order_type == 1:
-            print("Sonradan Sipariş Verdik")
-            print(self.selected_order)
             orders = []
             with open("database/aktif_siparisler.txt", "r", encoding='utf-8') as file:
 
                 for satir in file:
                     bilgiler = satir.strip().split(",")
                     map(str.rstrip, bilgiler)
-                    # !!!!!!!!!!!!!!!!!!!!!!!!
                     orders.append(
                         {"k_adi": bilgiler[0], "tarih": bilgiler[1], "saat": bilgiler[2], "items": bilgiler[3],
                          "fiyat": bilgiler[4]})
                 for order in orders:
-                    if self.selected_order["k_adi"] == order["k_adi"] and self.selected_order["saat"] == order["saat"]:
+                    if self.selected_order["k_adi"] == order["k_adi"] and self.selected_order["tarih"] == order["tarih"] and self.selected_order["saat"] == order["saat"]:
                         order["items"] = siparisler
                         order["fiyat"] = str(self.total_price)
 
@@ -179,7 +179,7 @@ class OrderWindow(QMainWindow):
             dosya.write(str(datetime.now().year) + " " + str(datetime.now().month) + " " + str(self.total_price) + "\n")
 
         self.reset_lists()
-        self.ui.total_price_label.setText("Toplam Fiyat: 0 TL")
+
         return True
 
     def bosMu(self):

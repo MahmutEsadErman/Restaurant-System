@@ -1,6 +1,6 @@
 import sys
 
-from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget, QMessageBox
+from PySide6.QtWidgets import QApplication, QMainWindow, QStackedWidget, QMessageBox, QLabel
 
 from Customer.PaymentWindow import PaymentWindow
 from General.LoginWindow import LoginWindow
@@ -120,6 +120,7 @@ class MainWindow(QMainWindow):
         if not self.orderWindow.bosMu():
             self.orderWindow.siparisVer()
             self.stackedWidget.setCurrentWidget(self.mainmenu)
+            self.orderHistoryWindow.load_orders()
 
     def gotoPage(self, window):
         self.stackedWidget.setCurrentWidget(window)

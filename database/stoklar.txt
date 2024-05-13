@@ -1,6 +1,6 @@
-Kebap,73
-Büryan,22
-Tavuk Şiş,42
-Köfte,35
-Çorba,91
-İskender,20
+Kebap,60
+Büryan,17
+Tavuk Şiş,39
+Köfte,30
+Çorba,80
+İskender,15

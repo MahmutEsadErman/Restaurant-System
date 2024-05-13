@@ -1,12 +1,7 @@
-import sys
-from datetime import datetime
-from functools import partial
-
-from PySide6.QtCore import QTimer
+from PySide6.QtCore import QTimer, Qt
 from PySide6.QtWidgets import QMainWindow, QTableWidget, QVBoxLayout, QWidget, QTableWidgetItem, \
     QPushButton, QMessageBox, QAbstractItemView, QInputDialog, QHeaderView
 
-from Customer.OrderWindow import OrderWindow
 
 
 class HistoryWindow(QMainWindow):
@@ -80,7 +75,6 @@ class HistoryWindow(QMainWindow):
             self.table.setCellWidget(row, 2, None)
             self.table.setItem(row, 2, QTableWidgetItem(comment))
 
-        #YORUMU YAPAN KULLANICI????????????
         # Save comment to the database
 
         if kullanici_orders[row] in orders:
@@ -139,7 +133,6 @@ class OrderHistoryWindow(HistoryWindow):
     def cell_double_click_event(self, row, column):
         QMessageBox.information(self, "Bilgi", self.table.item(row, column).text())
 
-    #!!Khalili  burada yorum yerine sipariş yapılmış mı yapılmamış mı onu kontrol et
     def load_orders(self):
         orders = []
         kullanici_orders = []
@@ -169,30 +162,25 @@ class OrderHistoryWindow(HistoryWindow):
 
             if order["items"] == "x":
                 # Add Comment Button
-                btn_comment = QPushButton('Sipariş Yap')
-                btn_comment.clicked.connect(lambda checked, x=order: self.go_order_page(x))
-                self.table.setCellWidget(i, 2, btn_comment)
+                btn_order = QPushButton('Sipariş Yap')
+                btn_order.clicked.connect(lambda ch=True, x=order: self.go_order_page(x))
+                self.table.setCellWidget(i, 2, btn_order)
             else:
+                self.table.removeCellWidget(i, 2)
                 self.table.setItem(i, 2, QTableWidgetItem("Sipariş Yapılmış"))
 
     def delete_order(self, row):
-
         with open("database/aktif_siparisler.txt", "r", encoding='utf-8') as file:
-
             orders = [line.strip().split(",") for line in file]
-
         order_to_remove = (self.table.item(row, 0).text(),
                            self.table.item(row, 1).text())
-
         for order in orders:
             if (order[1], order[2]) == order_to_remove:
                 orders.remove(order)
                 break
-
         with open("database/aktif_siparisler.txt", "w", encoding='utf-8') as dosya:
             for order in orders:
                 dosya.write(",".join(order) + "\n")
-
         self.load_orders()
 
     def update_k_adi(self, k_adi):
