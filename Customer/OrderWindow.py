@@ -134,6 +134,7 @@ class OrderWindow(QMainWindow):
             for order in self.orders:
                 if food == order[0]:
                     if self.stoklar[i] - order[2] < 0:
+                        QMessageBox.warning(self, "Hata", "Stokta yeterli ürün bulunmamaktadır!")
                         return False
                     else:
                         self.stoklar[i] -= order[2]
