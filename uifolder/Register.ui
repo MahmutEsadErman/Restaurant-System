@@ -103,6 +103,13 @@ QPushButton#login_button{
        </widget>
       </item>
       <item>
+       <widget class="QLineEdit" name="lineEdit_5">
+        <property name="placeholderText">
+         <string>Kullanıcı Adı</string>
+        </property>
+       </widget>
+      </item>
+      <item>
        <widget class="QLineEdit" name="lineEdit_4">
         <property name="text">
          <string/>

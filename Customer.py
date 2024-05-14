@@ -125,6 +125,9 @@ class MainWindow(QMainWindow):
     def gotoPage(self, window):
         self.stackedWidget.setCurrentWidget(window)
 
+        if window == self.historyWindow:
+            self.historyWindow.load_orders()
+
 
 if __name__ == "__main__":
     app = QApplication(sys.argv)

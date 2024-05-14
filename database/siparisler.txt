@@ -7,3 +7,4 @@ e,2024-05-13,06:10,Köfte,15,Büryan çok iyiymiş çok beğendim
 e,2024-05-13,02:20,Köfte,50,x
 e,2024-05-13,04:40,Çorba,20,açık ayran olsaydı içerdik
 e,2024-05-13,00:20,Tavuk Şiş-Köfte,35,x
+b,2024-05-14,09:37,Büryan-Ayran,205,çok güzeldi

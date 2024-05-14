@@ -2,7 +2,7 @@ import sys
 
 from PySide6.QtUiTools import QUiLoader
 from PySide6.QtWidgets import QApplication, QMainWindow, QMessageBox
-from PySide6.QtCore import Qt, QFile
+from PySide6.QtCore import QFile
 
 
 class RegisterWindow(QMainWindow):
@@ -17,8 +17,6 @@ class RegisterWindow(QMainWindow):
         self.ui = QUiLoader().load(ui_file)
         ui_file.close()
         self.setCentralWidget(self.ui)
-
-        self.ui.signup_button.clicked.connect(lambda: self.uyeOl())
 
     def uyeOl(self):
 
@@ -52,10 +50,9 @@ class RegisterWindow(QMainWindow):
         elif cep_telefonu in numaralar:
             QMessageBox.warning(self, "Uyarı", "Bu telefon numarası zaten alınmış.")
             return False
-
         else:
             with open("database/kullanicilar.txt", "a", encoding='utf-8') as dosya:
-                dosya.write(ad_soyad + "-" + kullanici_adi + "-" + cep_telefonu + "-" + sifre + "\n")
+                dosya.write(ad_soyad + "-" + kullanici_adi + "-" + e_posta + "-" + cep_telefonu + "-" + sifre + "\n")
             return True
 
 

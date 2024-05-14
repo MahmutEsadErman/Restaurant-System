@@ -3,7 +3,6 @@ from PySide6.QtWidgets import QMainWindow, QTableWidget, QVBoxLayout, QWidget, Q
     QPushButton, QMessageBox, QAbstractItemView, QInputDialog, QHeaderView
 
 
-
 class HistoryWindow(QMainWindow):
     def __init__(self):
         super().__init__()
@@ -51,7 +50,7 @@ class HistoryWindow(QMainWindow):
                                "fiyat": bilgiler[4], "yorum": bilgiler[5]})
                 if bilgiler[0] == self.k_adi:
                     kullanici_orders.append({"k_adi": bilgiler[0], "date": bilgiler[1], "time": bilgiler[2],
-                                     "items": bilgiler[3], "fiyat": bilgiler[4], "yorum": bilgiler[5]})
+                                             "items": bilgiler[3], "fiyat": bilgiler[4], "yorum": bilgiler[5]})
 
         self.table.setRowCount(len(kullanici_orders))
         for i, order in enumerate(kullanici_orders):
@@ -66,7 +65,6 @@ class HistoryWindow(QMainWindow):
                 self.table.setCellWidget(i, 2, btn_comment)
             else:
                 self.table.setItem(i, 2, QTableWidgetItem(order["yorum"]))
-
 
     # (WIP) Khalili
     def make_comment(self, row, orders, kullanici_orders):
